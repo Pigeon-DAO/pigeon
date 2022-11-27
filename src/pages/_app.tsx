@@ -4,8 +4,11 @@ import { SessionProvider } from "next-auth/react";
 
 import { trpc } from "@utils/trpc";
 
-import "@styles/globals.css";
 import Layout from "@components/layout";
+import Web3Provider from "web3/web3Provider";
+
+import "@styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -13,9 +16,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Web3Provider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Web3Provider>
     </SessionProvider>
   );
 };
