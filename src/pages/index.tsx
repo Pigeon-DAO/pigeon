@@ -73,6 +73,9 @@ const AuthShowcase: React.FC = () => {
         onClick={sessionData ? () => signOut() : () => signIn()}>
         {sessionData ? "Sign out" : "Sign in"}
       </button>
+      <Link className="btn" href="/home">
+        Home
+      </Link>
     </div>
   );
 };
