@@ -1,12 +1,36 @@
-# Create T3 App
+# Pigeon
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+### **PLEASE READ**
 
-## What's next? How do I make an app with this?
+Created with the [T3 Stack](https://create.t3.gg/). (Next.js, Typescript, Prisma, tRPC)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Get Started
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+### .env
+
+You will need the keys from an admin. Use the `.env.example` file to build your `.env` file.
+
+### Running the app
+
+This app uses yarn instead of npm. Yarn is faster. Don't have yarn?
+
+`npm install --global yarn`
+
+Locate the folder that was git cloned. Next install dependencies.
+
+`yarn`
+
+Add or remove dependencies with `yard add` or `yarn remove`, etc.
+
+Run the application:
+
+`yarn dev`
+
+In VSCode, **please install the Prettier extension. In VSCode settings, set it as your default formatter, and format on focus change or after delay. Format on save and format on paste.** Formatting settings for Prettier are in the `.prettierrc` file.
+
+## T3 Stack
+
+If you are not familiar with the different technologies used in this project, please refer to the respective docs or join their [Discord](https://t3.gg/discord) and ask for help.
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
