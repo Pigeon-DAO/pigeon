@@ -12,19 +12,9 @@ You will need the keys from an admin. Use the `.env.example` file to build your 
 
 ### Running the app
 
-This app uses yarn instead of npm. Yarn is faster. Don't have yarn?
-
-`npm install --global yarn`
-
-Locate the folder that was git cloned. Next install dependencies.
-
-`yarn`
-
-Add or remove dependencies with `yard add` or `yarn remove`, etc.
-
-Run the application:
-
-`yarn dev`
+After setting up the .env
+`npm i`
+`npm run dev`
 
 In VSCode, **please install the Prettier extension. In VSCode settings, set it as your default formatter, and format on focus change or after delay. Format on save and format on paste.** Formatting settings for Prettier are in the `.prettierrc` file.
 
