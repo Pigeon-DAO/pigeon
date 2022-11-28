@@ -4,6 +4,7 @@ import {
   connectorsForWallets,
   midnightTheme,
 } from "@rainbow-me/rainbowkit";
+import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 import {
   argentWallet,
   trustWallet,
@@ -64,17 +65,19 @@ interface Web3ProviderProps {
 const Web3Provider = ({ children }: Web3ProviderProps) => {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider
-        appInfo={appInfo}
-        chains={chains}
-        theme={midnightTheme({
-          accentColor: "transparent",
-          accentColorForeground: "white",
-          borderRadius: "small",
-          fontStack: undefined,
-        })}>
-        {children}
-      </RainbowKitProvider>
+      <RainbowKitSiweNextAuthProvider>
+        <RainbowKitProvider
+          appInfo={appInfo}
+          chains={chains}
+          theme={midnightTheme({
+            accentColor: "transparent",
+            accentColorForeground: "white",
+            borderRadius: "small",
+            fontStack: undefined,
+          })}>
+          {children}
+        </RainbowKitProvider>
+      </RainbowKitSiweNextAuthProvider>
     </WagmiConfig>
   );
 };

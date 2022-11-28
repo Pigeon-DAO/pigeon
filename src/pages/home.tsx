@@ -10,20 +10,6 @@ const Home = () => {
   const account = useAccount();
   const router = useRouter();
 
-  const { disconnect } = useDisconnect();
-  const provider = useProvider();
-
-  const removeWallet = async () => {
-    disconnect();
-    const items = { ...localStorage };
-    console.log(Object.keys(items));
-    Object.keys(items).map((item: string) => {
-      if (item?.includes("wagmi") || item?.includes("walletlink")) {
-        localStorage.removeItem(item);
-      }
-    });
-  };
-
   useEffect(() => {
     if (session.status === "unauthenticated") {
       router.push("/");
@@ -46,14 +32,6 @@ const Home = () => {
           {account.status === "connected" && (
             <div>
               <p>Account connected: {account.address}</p>
-              <button
-                className="btn"
-                onClick={() => {
-                  removeWallet();
-                }}>
-                Remove Wallet
-              </button>
-              <em>Metamask users must disconnect from the extension.</em>
             </div>
           )}
           {account.status === "connecting" && <p>Connecting...</p>}
