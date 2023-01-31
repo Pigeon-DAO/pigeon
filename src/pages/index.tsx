@@ -3,10 +3,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { trpc } from "@utils/trpc";
+import { api } from "@utils/api";
 
 const Home: NextPage = () => {
-  // const hello = trpc.example.hello.useQuery({ text: "Wuu it works" });
+  const hello = api.example.hello.useQuery({ text: "tRPC is working!" });
 
   return (
     <>
@@ -20,6 +20,7 @@ const Home: NextPage = () => {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Pigeon MVP
           </h1>
+          <div>{hello.data?.greeting}</div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
             <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
@@ -57,7 +58,7 @@ export default Home;
 const AuthShowcase: React.FC = () => {
   const session = useSession();
 
-  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
+  const { data: secretMessage } = api.user.getSecretMessage.useQuery(
     undefined, // no input
     { enabled: session.data?.user !== undefined }
   );

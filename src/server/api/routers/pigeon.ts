@@ -1,8 +1,9 @@
+import { prisma } from "@server/db";
 import { z } from "zod";
 
-import { router, publicProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
-export const pigeon = router({
+export const pigeonRouter = createTRPCRouter({
   // hello: publicProcedure
   //   .input(z.object({ text: z.string().nullish() }).nullish())
   //   .query(({ input }) => {

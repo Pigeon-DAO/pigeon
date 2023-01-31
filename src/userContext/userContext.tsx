@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { createContext, ReactNode, useState, useEffect } from "react";
 
-import { trpc } from "@utils/trpc";
+import { api } from "@utils/api";
 import { useQuery } from "@tanstack/react-query";
 
 interface UserContextI {
@@ -17,7 +17,7 @@ const UserContext = ({ children }: { children: ReactNode }) => {
 
   const [signedIn, setSignedIn] = useState(false);
 
-  const test = trpc.useContext();
+  const test = api.useContext();
 
   const [user, setUser] = useState<any | undefined>(undefined);
 

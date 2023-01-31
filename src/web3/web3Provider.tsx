@@ -11,19 +11,18 @@ import {
   ledgerWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { ReactNode } from "react";
-import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { goerli, arbitrumGoerli, mainnet } from "@wagmi/core/chains";
+
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+import { env } from "@env/client.mjs";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [
-    chain.mainnet,
-    // chain.polygon,
-    // chain.optimism,
-    // chain.arbitrum,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
-      ? [chain.goerli]
-      : []),
+    ...(env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
+      ? [mainnet, goerli, arbitrumGoerli]
+      : [mainnet]),
   ],
   [
     alchemyProvider({ apiKey: "_c61zld3NCwcTetLWN9F0ku279Sa8GYK" }),
@@ -31,8 +30,8 @@ const { chains, provider, webSocketProvider } = configureChains(
   ]
 );
 
-const { wallets } = getDefaultWallets({
-  appName: "RainbowKit demo",
+const { connectors } = getDefaultWallets({
+  appName: "Pigeon DAO",
   chains,
 });
 
@@ -40,17 +39,17 @@ const appInfo = {
   appName: "Pigeon DAO",
 };
 
-const connectors = connectorsForWallets([
-  ...wallets,
-  {
-    groupName: "Other",
-    wallets: [
-      argentWallet({ chains }),
-      trustWallet({ chains }),
-      ledgerWallet({ chains }),
-    ],
-  },
-]);
+// const connectors = connectorsForWallets([
+//   ...wallets,
+//   {
+//     groupName: "Other",
+//     wallets: [
+//       argentWallet({ chains }),
+//       trustWallet({ chains }),
+//       ledgerWallet({ chains }),
+//     ],
+//   },
+// ]);
 
 const wagmiClient = createClient({
   autoConnect: true,

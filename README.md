@@ -12,9 +12,15 @@ You will need the keys from an admin. Use the `.env.example` file to build your 
 
 ### Running the app
 
-After setting up the .env
-`npm i`
-`npm run dev`
+Use yarn instead of npm.
+
+- `yarn` - Install dependencies
+
+- `npx prisma db push` - Push to local DB
+
+- `npx prisma generate` - Generate Typescript types
+
+- `yarn dev` - Run local development environment
 
 In VSCode, **please install the Prettier extension. In VSCode settings, set it as your default formatter, and format on focus change or after delay. Format on save and format on paste.** Formatting settings for Prettier are in the `.prettierrc` file.
 
