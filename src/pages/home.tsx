@@ -1,13 +1,14 @@
 import Layout from "@components/layout";
-import { signOut, useSession } from "next-auth/react";
-import Router, { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useAccount, useDisconnect, useProvider } from "wagmi";
+import { useAccount } from "wagmi";
 import ConnectWalletButton from "web3/connectWalletButton";
 
 const Home = () => {
   const session = useSession();
   const account = useAccount();
+
   const router = useRouter();
 
   useEffect(() => {
