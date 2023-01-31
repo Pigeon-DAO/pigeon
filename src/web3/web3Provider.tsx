@@ -5,11 +5,6 @@ import {
   midnightTheme,
 } from "@rainbow-me/rainbowkit";
 import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
-import {
-  argentWallet,
-  trustWallet,
-  ledgerWallet,
-} from "@rainbow-me/rainbowkit/wallets";
 import { ReactNode } from "react";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { goerli, arbitrumGoerli, mainnet } from "@wagmi/core/chains";

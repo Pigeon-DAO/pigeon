@@ -70,16 +70,17 @@ const AuthShowcase: React.FC = () => {
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <div className="flex items-stretch">
-        <button
-          className="btn"
-          onClick={!!session.data ? () => signOut() : () => signIn()}>
+        <button onClick={!!session.data ? () => signOut() : () => signIn()}>
           {!!session.data ? "Sign out" : "Sign in"}
         </button>
         {session.status === "authenticated" && (
           <Link className="btn" href="/home">
-            Home
+            <button>Home</button>
           </Link>
         )}
+        <Link className="btn" href="/contract">
+          <button>Contracts</button>
+        </Link>
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export default function SignIn({ providers }: any) {
             {Object.values(providers).map((provider: any) => (
               <button
                 key={provider.name}
-                className="btn flex items-center justify-start gap-3"
+                className="flex items-center justify-start gap-3"
                 onClick={() => {
                   setSigningIn(true);
                   signIn(provider.id, {
