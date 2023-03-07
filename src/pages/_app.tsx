@@ -9,7 +9,6 @@ import Web3Provider from "web3/web3Provider";
 
 import "@styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-import UserContext from "userContext/userContext";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -17,13 +16,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <UserContext>
-        <Web3Provider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </Web3Provider>
-      </UserContext>
+      <Web3Provider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Web3Provider>
     </SessionProvider>
   );
 };

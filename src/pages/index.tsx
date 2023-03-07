@@ -2,11 +2,14 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import NoSSR from "react-no-ssr";
 import { api } from "@utils/api";
+import { useAccount } from "wagmi";
+import ConnectWalletButton from "web3/connectWalletButton";
 
-const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "tRPC is working!" });
+export default function Home() {
+  const session = useSession();
+  const account = useAccount();
 
   return (
     <>
@@ -16,72 +19,43 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+        <div className="container flex flex-col items-center gap-12 px-4">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Pigeon MVP
           </h1>
-          <div>{hello.data?.greeting}</div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps">
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction">
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {/* {hello.data ? hello.data.greeting : "Loading tRPC query..."} */}
-            </p>
-            <AuthShowcase />
+          <div className="flex flex-col">
+            <h3>{session.status === "loading" && <p>Loading...</p>}</h3>
+            {session.status === "unauthenticated" && (
+              <span>Please sign in.</span>
+            )}
+            <NoSSR>
+              {!account.address && <span>Please connect your wallet.</span>}
+            </NoSSR>
+
+            {session.status === "authenticated" && account.isConnected && (
+              <>
+                <h3>How are you going to use Pigeon?</h3>
+                <div className="flex flex-col gap-2">
+                  <span>
+                    By being a participant, you will create the agreement and
+                    work with the driver.
+                  </span>
+                  <Link href="/participant">
+                    <button>Participate</button>
+                  </Link>
+                  <span>
+                    By being the courier, you will be responsible for delivering
+                    to participants' needs.
+                  </span>
+                  <Link href="/courier">
+                    <button>Be a courier</button>
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </main>
     </>
   );
-};
-
-export default Home;
-
-const AuthShowcase: React.FC = () => {
-  const session = useSession();
-
-  const { data: secretMessage } = api.user.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: session.data?.user !== undefined }
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {!!session.data && <span>Logged in as {session.data?.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <div className="flex items-stretch">
-        <button onClick={!!session.data ? () => signOut() : () => signIn()}>
-          {!!session.data ? "Sign out" : "Sign in"}
-        </button>
-        {session.status === "authenticated" && (
-          <Link className="btn" href="/home">
-            <button>Home</button>
-          </Link>
-        )}
-        <Link className="btn" href="/contract">
-          <button>Contracts</button>
-        </Link>
-      </div>
-    </div>
-  );
-};
+}
