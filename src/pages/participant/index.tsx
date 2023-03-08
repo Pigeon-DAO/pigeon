@@ -1,4 +1,4 @@
-import StepProcess, { Steps } from "@components/stepProcess";
+import StepProcess, { ParticipantSteps } from "@components/stepProcess";
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { abi, contractAddress } from "contracts/Pigeon";
@@ -6,9 +6,12 @@ import { useAppStore } from "stores/useAppStore";
 import { ethers } from "ethers";
 import NoSSR from "react-no-ssr";
 import { FaEthereum } from "react-icons/fa";
+import { api } from "@utils/api";
 
 export default function Participant() {
-  const [step, setStep] = useState<Steps>(Steps.CreateListing);
+  const [step, setStep] = useState<ParticipantSteps>(
+    ParticipantSteps.CreateListing
+  );
   const account = useAccount();
 
   const agreement = useContractRead({
@@ -18,34 +21,52 @@ export default function Participant() {
     args: [account.address!],
   });
 
+  const contractProbablyExists = (agreement.data?.pickup.length || 0) > 0;
+
   useEffect(() => {
+    // problem
+    if (!contractProbablyExists) return;
+    // assumes zero if no contract
+    // zero is agreement was created
     if (agreement.data?.state === 0) {
-      setStep(Steps.FindCourier);
+      setStep(ParticipantSteps.FindCourier);
     } else if (agreement.data?.state === 1) {
-      setStep(Steps.AcceptCourier);
+      setStep(ParticipantSteps.AcceptCourier);
     } else if (agreement.data?.state === 2) {
-      setStep(Steps.Delivery);
-    } else if (agreement.data?.state === 3) {
-      setStep(Steps.Complete);
-    } else if (agreement.data?.state === 4) {
-      // ????
+      setStep(ParticipantSteps.Delivery);
+    } else if ((agreement.data?.state || 0) === 3) {
+      setStep(ParticipantSteps.AgreeCompletion);
+    } else if ((agreement.data?.state || 0) === 4) {
+      setStep(ParticipantSteps.Complete);
+    } else {
+      setStep(ParticipantSteps.CreateListing);
     }
     console.log(agreement.data?.state);
   }, [agreement.data?.state]);
 
-  const hasAgreement = agreement.data?.pickup.length || 0 > 0;
+  const hasAgreement = (agreement.data?.pickup.length || 0) > 0;
   return (
     <div className="flex flex-col gap-4">
       <NoSSR>
-        <StepProcess step={step} />
-        {!hasAgreement && step === 0 && <CreateAgreement />}
-        {step === 1 && (
+        <StepProcess type="participant" step={step} />
+        {!hasAgreement && step === ParticipantSteps.CreateListing && (
+          <CreateAgreement />
+        )}
+        {step === ParticipantSteps.FindCourier && (
           <FindCourier
             cost={agreement.data?.cost.toString()!}
             dropoff={agreement.data?.dropoff!}
             pickup={agreement.data?.pickup!}
           />
         )}
+        {step === ParticipantSteps.AcceptCourier && (
+          <AcceptCourier address={agreement.data?.courier!} />
+        )}
+        {step === ParticipantSteps.Delivery && (
+          <Delivery address={agreement.data?.courier!} />
+        )}
+        {step === ParticipantSteps.AgreeCompletion && <CompleteAgreement />}
+        {step === ParticipantSteps.Complete && <Complete />}
       </NoSSR>
     </div>
   );
@@ -104,6 +125,7 @@ function CreateAgreement() {
 
         setLoading(false);
         setLoadingMessage("");
+        localStorage.setItem("pCreatedAgreement", "true");
       })
       .catch((e) => {
         setLoading(false);
@@ -115,52 +137,61 @@ function CreateAgreement() {
   return (
     <>
       <h2>Create Agreement</h2>
-      <div className="flex flex-col">
-        <label htmlFor="createAgreementPickup">Pickup</label>
-        <span className="text-red-500">{errors[0] ?? errors[0]}</span>
-        <input
-          type="text"
-          id="createAgreementPickup"
-          value={createAgreementArgs[0]}
-          onChange={(e) => {
-            setCreateAgreementArgs((args) => {
-              return [e.target.value, args[1], args[2]];
-            });
-          }}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="createAgreementDropoff">Dropoff</label>
-        <span className="text-red-500">{errors[1] ?? errors[1]}</span>
-        <input
-          type="text"
-          id="createAgreementDropoff"
-          value={createAgreementArgs[1]}
-          onChange={(e) => {
-            setCreateAgreementArgs((args) => {
-              return [args[0], e.target.value, args[2]];
-            });
-          }}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="createAgreementDropoff">Price (ETH)</label>
-        <span className="text-red-500">{errors[2] ?? errors[2]}</span>
-        <input
-          type="number"
-          id="createAgreementDropoff"
-          value={createAgreementArgs[2]}
-          onChange={(e) => {
-            setCreateAgreementArgs((args) => {
-              return [args[0], args[1], e.target.value];
-            });
-          }}
-        />
-      </div>
+      {localStorage.getItem("pCreatedAgreement") === "true" ? (
+        <>
+          <h3>Agreement was created on a smart contract.</h3>
+          <span>The smart contract is processing your request...</span>
+        </>
+      ) : (
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
+            <label htmlFor="createAgreementPickup">Pickup</label>
+            <span className="text-red-500">{errors[0] ?? errors[0]}</span>
+            <input
+              type="text"
+              id="createAgreementPickup"
+              value={createAgreementArgs[0]}
+              onChange={(e) => {
+                setCreateAgreementArgs((args) => {
+                  return [e.target.value, args[1], args[2]];
+                });
+              }}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="createAgreementDropoff">Dropoff</label>
+            <span className="text-red-500">{errors[1] ?? errors[1]}</span>
+            <input
+              type="text"
+              id="createAgreementDropoff"
+              value={createAgreementArgs[1]}
+              onChange={(e) => {
+                setCreateAgreementArgs((args) => {
+                  return [args[0], e.target.value, args[2]];
+                });
+              }}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="createAgreementDropoff">Price (ETH)</label>
+            <span className="text-red-500">{errors[2] ?? errors[2]}</span>
+            <input
+              type="number"
+              id="createAgreementDropoff"
+              value={createAgreementArgs[2]}
+              onChange={(e) => {
+                setCreateAgreementArgs((args) => {
+                  return [args[0], args[1], e.target.value];
+                });
+              }}
+            />
+          </div>
 
-      <button className="btn" onClick={() => onSubmit()}>
-        Commence Agreement!
-      </button>
+          <button className="btn" onClick={() => onSubmit()}>
+            Commence Agreement!
+          </button>
+        </div>
+      )}
     </>
   );
 }
@@ -186,6 +217,112 @@ function FindCourier({
         <span>Price: {ethers.utils.formatEther(cost)} ETH</span>
         <FaEthereum />
       </div>
+    </div>
+  );
+}
+
+function AcceptCourier({ address }: { address: string }) {
+  const courier = api.user.getUserByAddress.useQuery({ address });
+  const acceptCourer = useContractWrite({
+    address: contractAddress,
+    abi: abi,
+    mode: "recklesslyUnprepared",
+    functionName: "acceptCourier",
+  });
+  const setLoading = useAppStore((state) => state.setLoading);
+  const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);
+
+  const onAccept = () => {
+    setLoading(true);
+    setLoadingMessage("Accepting Courier...");
+    acceptCourer
+      .writeAsync()
+      .then(() => {
+        setLoading(false);
+        setLoadingMessage("");
+      })
+      .catch(() => {
+        setLoading(false);
+        setLoadingMessage("");
+      });
+  };
+
+  return (
+    <div>
+      <h3>Accept this Courier?</h3>
+      <div className="flex flex-col gap-2">
+        {courier.data?.image && (
+          <img
+            src={courier.data?.image}
+            alt="courier"
+            className="h-32 w-32 rounded-full"
+          />
+        )}
+        <span>Name: {courier.data?.name}</span>
+        <span>Address: {courier.data?.address}</span>
+        <button className="btn" onClick={() => onAccept()}>
+          Accept {courier.data?.name}
+        </button>
+      </div>
+    </div>
+  );
+}
+function Delivery({ address }: { address: string }) {
+  return (
+    <div>
+      <span>
+        The courier is delivering. Wait until they mark it as delivered.
+      </span>
+    </div>
+  );
+}
+
+function CompleteAgreement() {
+  const setLoading = useAppStore((state) => state.setLoading);
+  const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);
+  const complete = useContractWrite({
+    address: contractAddress,
+    abi: abi,
+    mode: "recklesslyUnprepared",
+    functionName: "agreeDeliveryFinished",
+  });
+  function onSubmit() {
+    setLoading(true);
+    setLoadingMessage("Accepting package...");
+    complete
+      .writeAsync()
+      .then(() => {
+        setLoading(false);
+        setLoadingMessage("");
+      })
+      .catch((e) => {
+        setLoading(false);
+        setLoadingMessage("");
+        console.log(e);
+      });
+  }
+  return (
+    <div className="flex flex-col">
+      <span>
+        By clicking agree, I agree the package was delivered and the funds will
+        be sent to the courier.
+      </span>
+      <button className="btn" onClick={() => onSubmit()}>
+        Agree
+      </button>
+    </div>
+  );
+}
+
+function Complete() {
+  useEffect(() => {
+    localStorage.setItem("pCreatedAgreement", "false");
+  });
+  return (
+    <div>
+      <h1>Transaction completed.</h1>
+      <span>You may do another agreement.</span>
+      <CreateAgreement />
     </div>
   );
 }

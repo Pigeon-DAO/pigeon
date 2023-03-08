@@ -1,19 +1,5 @@
-export const contractAddress = "0xEa9ecBfAb7E9061518cdc1BD4563a94b57422C02";
+export const contractAddress = "0xda26ec4d650502831bb52bf8e5cad7bf1706bc41";
 export const abi = [
-  {
-    inputs: [],
-    name: "acceptCourier",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "agreeDeliveryFinished",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
   {
     anonymous: false,
     inputs: [
@@ -53,53 +39,28 @@ export const abi = [
     type: "event",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "acceptCourier",
+    outputs: [
       {
-        internalType: "string",
-        name: "_pickup",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_dropoff",
-        type: "string",
+        internalType: "bool",
+        name: "",
+        type: "bool",
       },
     ],
-    name: "createAgreement",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_participant",
-        type: "address",
-      },
-    ],
-    name: "markDeliveryFinished",
-    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "rejectCourier",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
+    name: "agreeDeliveryFinished",
+    outputs: [
       {
-        internalType: "address",
-        name: "_participant",
-        type: "address",
+        internalType: "bytes",
+        name: "",
+        type: "bytes",
       },
     ],
-    name: "selectPackage",
-    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -145,6 +106,30 @@ export const abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_pickup",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_dropoff",
+        type: "string",
+      },
+    ],
+    name: "createAgreement",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "payable",
     type: "function",
   },
   {
@@ -196,6 +181,57 @@ export const abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_participant",
+        type: "address",
+      },
+    ],
+    name: "markDeliveryFinished",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "rejectCourier",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_participant",
+        type: "address",
+      },
+    ],
+    name: "selectPackage",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;
