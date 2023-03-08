@@ -229,6 +229,12 @@ function AcceptCourier({ address }: { address: string }) {
     mode: "recklesslyUnprepared",
     functionName: "acceptCourier",
   });
+  const rejectCourier = useContractWrite({
+    address: contractAddress,
+    abi: abi,
+    mode: "recklesslyUnprepared",
+    functionName: "rejectCourier",
+  });
   const setLoading = useAppStore((state) => state.setLoading);
   const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);
 
@@ -236,6 +242,21 @@ function AcceptCourier({ address }: { address: string }) {
     setLoading(true);
     setLoadingMessage("Accepting Courier...");
     acceptCourer
+      .writeAsync()
+      .then(() => {
+        setLoading(false);
+        setLoadingMessage("");
+      })
+      .catch(() => {
+        setLoading(false);
+        setLoadingMessage("");
+      });
+  };
+
+  const onReject = () => {
+    setLoading(true);
+    setLoadingMessage("Rejecting Courier...");
+    rejectCourier
       .writeAsync()
       .then(() => {
         setLoading(false);
@@ -262,6 +283,9 @@ function AcceptCourier({ address }: { address: string }) {
         <span>Address: {courier.data?.address}</span>
         <button className="btn" onClick={() => onAccept()}>
           Accept {courier.data?.name}
+        </button>
+        <button className="btn" onClick={() => onReject()}>
+          Reject {courier.data?.name}
         </button>
       </div>
     </div>
