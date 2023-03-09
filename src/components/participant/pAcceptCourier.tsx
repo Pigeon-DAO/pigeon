@@ -3,7 +3,7 @@ import { api } from "@utils/api";
 import { abi, contractAddress } from "contracts/Pigeon";
 import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
-import { useContractWrite } from "wagmi";
+import { useContractEvent, useContractWrite } from "wagmi";
 
 export default function PAcceptCourier({ address }: { address: string }) {
   const courier = api.user.getUserByAddress.useQuery({ address });

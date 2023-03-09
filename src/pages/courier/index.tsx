@@ -1,7 +1,7 @@
 import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractEvent, useContractRead } from "wagmi";
 import StepProcess, { CourierSteps } from "@components/stepProcess";
 import NoSSR from "react-no-ssr";
 

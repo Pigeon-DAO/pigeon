@@ -1,6 +1,6 @@
 import StepProcess, { ParticipantSteps } from "@components/stepProcess";
 import { useEffect, useState } from "react";
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractEvent, useContractRead } from "wagmi";
 import { abi, contractAddress } from "contracts/Pigeon";
 import PCreateAgreement from "../../components/participant/pCreateAgreement";
 import PFindCourier from "../../components/participant/pFindCourier";
@@ -24,6 +24,15 @@ export default function Participant() {
   });
 
   const agreementProbablyExists = (agreement.data?.pickup.length || 0) > 0;
+
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "CommenceDelivery",
+    listener: (result) => {
+      agreement.refetch();
+    },
+  });
 
   useEffect(() => {
     // problem

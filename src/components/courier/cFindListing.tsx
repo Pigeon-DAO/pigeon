@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaEthereum } from "react-icons/fa";
 import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
-import { useContractRead, useContractWrite } from "wagmi";
+import { useContractEvent, useContractRead, useContractWrite } from "wagmi";
 
 export default function CFindListing({
   address,
@@ -27,6 +27,16 @@ export default function CFindListing({
     mode: "recklesslyUnprepared",
     functionName: "selectPackage",
     args: [address as `0x${string}`],
+  });
+
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "AgreementSelected",
+    listener: (result) => {
+      console.log("result ", result);
+      agreement.refetch();
+    },
   });
 
   function onSubmitFindPackage() {
