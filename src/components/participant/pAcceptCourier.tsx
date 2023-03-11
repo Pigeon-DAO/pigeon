@@ -5,7 +5,13 @@ import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
-export default function PAcceptCourier({ address }: { address: string }) {
+export default function PAcceptCourier({
+  address,
+  onSolidityEvent,
+}: {
+  address: string;
+  onSolidityEvent: () => void;
+}) {
   const courier = api.user.getUserByAddress.useQuery({ address });
   const acceptCourer = useContractWrite({
     address: contractAddress,
@@ -18,6 +24,15 @@ export default function PAcceptCourier({ address }: { address: string }) {
     abi: abi,
     mode: "recklesslyUnprepared",
     functionName: "rejectCourier",
+  });
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "ParticipantAcceptedCourier",
+    listener: (event) => {
+      console.log("CourierAccepted", event);
+      onSolidityEvent();
+    },
   });
   const setLoading = useAppStore((state) => state.setLoading);
   const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);

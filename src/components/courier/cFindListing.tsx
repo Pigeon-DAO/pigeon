@@ -25,14 +25,14 @@ export default function CFindListing({
     address: contractAddress,
     abi: abi,
     mode: "recklesslyUnprepared",
-    functionName: "selectPackage",
+    functionName: "selectAgreement",
     args: [address as `0x${string}`],
   });
 
   useContractEvent({
     address: contractAddress,
     abi: abi,
-    eventName: "AgreementSelected",
+    eventName: "CourierSelectedAgreement",
     listener: (result) => {
       console.log("result ", result);
       agreement.refetch();

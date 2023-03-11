@@ -3,22 +3,30 @@ import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
 import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
-import { useContractRead, useContractWrite } from "wagmi";
+import { useContractEvent, useContractRead, useContractWrite } from "wagmi";
 
-export default function CDelivery({ address }: { address: string | null }) {
-  // const agreement = useContractRead({
-  //   address: contractAddress,
-  //   abi: abi,
-  //   functionName: "getAgreement",
-
-  //   args: [(address as `0x${string}`) || ethers.constants.AddressZero],
-  // });
+export default function CDelivery({
+  address,
+  onSolidityEvent,
+}: {
+  address: string | null;
+  onSolidityEvent: () => void;
+}) {
   const markAsDelivered = useContractWrite({
     address: contractAddress,
     abi: abi,
     mode: "recklesslyUnprepared",
     functionName: "markDeliveryFinished",
     args: [address as `0x${string}`],
+  });
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "CourierMarkedDeliveryFinished",
+    listener: (event) => {
+      onSolidityEvent();
+      console.log("CourierMarkedDeliveryFinished");
+    },
   });
   const setLoading = useAppStore((state) => state.setLoading);
   const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);

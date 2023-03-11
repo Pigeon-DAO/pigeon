@@ -1,4 +1,22 @@
-export default function PDelivery({ address }: { address: string }) {
+import { abi, contractAddress } from "contracts/Pigeon";
+import { useContractEvent } from "wagmi";
+
+export default function PDelivery({
+  address,
+  onSolidityEvent,
+}: {
+  address: string;
+  onSolidityEvent: () => void;
+}) {
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "CourierMarkedDeliveryFinished",
+    listener: (event) => {
+      onSolidityEvent();
+      console.log("CourierMarkedDeliveryFinished");
+    },
+  });
   return (
     <div>
       <span>

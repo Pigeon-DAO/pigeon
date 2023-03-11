@@ -1,7 +1,7 @@
 import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { useAccount, useContractEvent, useContractRead } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import StepProcess, { CourierSteps } from "@components/stepProcess";
 import NoSSR from "react-no-ssr";
 
@@ -26,8 +26,14 @@ export default function Courier() {
     args: [(address as `0x${string}`) || ethers.constants.AddressZero],
   });
 
-  useEffect(() => {
-    if (localStorage.getItem("selectedPackageAddress")) {
+  const agreementProbablyExists = (agreement.data?.pickup.length || 0) > 0;
+
+  function UpdateStates() {
+    if (typeof window === "undefined") return;
+    const validAdrInLocalStorage = ethers.utils.isAddress(
+      localStorage.getItem("selectedPackageAddress") || ""
+    );
+    if (agreementProbablyExists) {
       // setStep(CourierSteps.Agreement);
       switch (agreement.data?.state) {
         case 0:
@@ -49,7 +55,7 @@ export default function Courier() {
     }
     // replace with curr smart contract step write complete as int for step
     // track step, once step changes, reset to false
-    if (!!localStorage.getItem("selectedPackageAddress")) {
+    if (validAdrInLocalStorage) {
       setAddress(localStorage.getItem("selectedPackageAddress")!);
       // find a nicer solution for this or make sure it works ^^^
     }
@@ -60,7 +66,17 @@ export default function Courier() {
         agreement.data?.participant!
       );
     }
-  }, [address, agreement.data?.courier]);
+  }
+
+  useEffect(() => {
+    UpdateStates();
+  }, [agreement.data?.state]);
+
+  const onSolidityEvent = () => {
+    agreement.refetch()
+    console.log("Agreement State", agreement.data?.state);
+    UpdateStates();
+  };
 
   return (
     <div>
@@ -71,12 +87,21 @@ export default function Courier() {
         <CFindListing address={address} setAddress={setAddress} />
       )}
       {step === CourierSteps.Agreement && (
-        <CAgreement address={address as string} />
+        <CAgreement
+          address={address as string}
+          state={agreement.data?.state || 0}
+          onSolidityEvent={onSolidityEvent}
+        />
       )}
       {step === CourierSteps.Delivery && (
-        <CDelivery address={address as string} />
+        <CDelivery
+          address={address as string}
+          onSolidityEvent={onSolidityEvent}
+        />
       )}
-      {step === CourierSteps.WaitingCompletion && <CWaitingCompletion />}
+      {step === CourierSteps.WaitingCompletion && (
+        <CWaitingCompletion onSolidityEvent={onSolidityEvent} />
+      )}
       {step === CourierSteps.Complete && (
         <CComplete
           onClickComplete={() => {

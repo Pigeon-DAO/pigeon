@@ -1,17 +1,29 @@
+import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
 import { FaEthereum } from "react-icons/fa";
-import { useAccount } from "wagmi";
+import { useAccount, useContractEvent } from "wagmi";
 
 export default function FindCourier({
   pickup,
   dropoff,
   cost,
+  onSolidityEvent,
 }: {
   pickup: string;
   dropoff: string;
   cost: string;
+  onSolidityEvent: () => void;
 }) {
   const account = useAccount();
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "CourierSelectedAgreement",
+    listener: (event) => {
+      onSolidityEvent();
+      console.log("CourierSelectedAgreement");
+    },
+  });
   return (
     <div className="flex flex-col">
       <h3>Congrats! Your package is out there!</h3>

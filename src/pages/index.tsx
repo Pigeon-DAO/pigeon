@@ -5,7 +5,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import NoSSR from "react-no-ssr";
 import { api } from "@utils/api";
 import { useAccount } from "wagmi";
-import ConnectWalletButton from "web3/connectWalletButton";
 
 export default function Home() {
   const session = useSession();
@@ -33,7 +32,7 @@ export default function Home() {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Pigeon MVP
           </h1>
-          {!!user.data && !user.data?.address && (
+          {!!user.data && !user.data?.address && account.address && (
             <div className="flex flex-col justify-start rounded-xl bg-yellow-700/90 px-4 py-4 ">
               <h2>WARNING: Please link your address to this account.</h2>
               <span>

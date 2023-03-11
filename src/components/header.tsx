@@ -22,22 +22,26 @@ export default function Header() {
       </h2>
       <div className="flex items-center gap-2">
         {session.status === "authenticated" && (
-          <div className="flex w-full flex-col items-end">
+          <div className="flex gap-2">
             {!account.address && <ConnectWalletButton />}
-            <button
-              className="btn flex w-fit items-center justify-end gap-2 py-1"
-              onClick={!!session.data ? () => signOut() : () => signIn()}>
-              <div className="flex flex-col text-end">
-                <span>{user?.name}</span>
-              </div>
+            <div className="flex w-full flex-col items-end">
+              <button
+                className="btn flex w-fit items-center justify-end gap-2 py-1"
+                onClick={!!session.data ? () => signOut() : () => signIn()}>
+                <div className="flex flex-col text-end">
+                  <span>{user?.name}</span>
+                </div>
 
-              {user?.image && (
-                <img src={user.image} className="h-10 w-10 rounded-full"></img>
+                {user?.image && (
+                  <img
+                    src={user.image}
+                    className="h-10 w-10 rounded-full"></img>
+                )}
+              </button>
+              {account && (
+                <span className="text-sm text-white">{account.address}</span>
               )}
-            </button>
-            {account && (
-              <span className="text-sm text-white">{account.address}</span>
-            )}
+            </div>
           </div>
         )}
         {session.status === "unauthenticated" && (

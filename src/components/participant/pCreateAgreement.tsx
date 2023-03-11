@@ -5,9 +5,13 @@ import { ethers } from "ethers";
 import { useState } from "react";
 import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
-import { useContractWrite } from "wagmi";
+import { useContractEvent, useContractWrite } from "wagmi";
 
-export default function PCreateAgreement() {
+export default function PCreateAgreement({
+  onSolidityEvent,
+}: {
+  onSolidityEvent: () => void;
+}) {
   const [createAgreementArgs, setCreateAgreementArgs] = useState<
     [string, string, string]
   >(["", "", ""]);
@@ -24,6 +28,16 @@ export default function PCreateAgreement() {
 
     // args are readonly [string, string]
     args: [createAgreementArgs[0]!, createAgreementArgs[1]!],
+  });
+
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "AgreementCreated",
+    listener: (event) => {
+      console.log("AgreementCreated", event);
+      onSolidityEvent();
+    },
   });
 
   function onSubmit() {

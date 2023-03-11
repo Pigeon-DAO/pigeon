@@ -1,13 +1,13 @@
 import StepProcess, { ParticipantSteps } from "@components/stepProcess";
 import { useEffect, useState } from "react";
-import { useAccount, useContractEvent, useContractRead } from "wagmi";
+import { useAccount, useContractRead } from "wagmi";
 import { abi, contractAddress } from "contracts/Pigeon";
 import PCreateAgreement from "../../components/participant/pCreateAgreement";
 import PFindCourier from "../../components/participant/pFindCourier";
 import NoSSR from "react-no-ssr";
 import PAcceptCourier from "@components/participant/pAcceptCourier";
 import PDelivery from "@components/participant/pDelivery";
-import PCompleteAgreement from "@components/participant/pCompleteAgreement";
+import PAgreeDeliveryFinished from "@components/participant/pAgreeDeliveryFinished";
 import PComplete from "@components/participant/pComplete";
 
 export default function Participant() {
@@ -25,20 +25,13 @@ export default function Participant() {
 
   const agreementProbablyExists = (agreement.data?.pickup.length || 0) > 0;
 
-  useContractEvent({
-    address: contractAddress,
-    abi: abi,
-    eventName: "CommenceDelivery",
-    listener: (result) => {
-      agreement.refetch();
-    },
-  });
+  const onSolidityEvent = () => {
+    agreement.refetch();
+    console.log("Agreement State", agreement.data?.state);
+  };
 
-  useEffect(() => {
-    // problem
+  function UpdateStates() {
     if (!agreementProbablyExists) return;
-    // assumes zero if no contract
-    // zero is agreement was created
     if (agreement.data?.state === 0) {
       setStep(ParticipantSteps.FindCourier);
     } else if (agreement.data?.state === 1) {
@@ -56,28 +49,45 @@ export default function Participant() {
     if (Number(localStorage.getItem("pSmartContractWritePending")) != step) {
       localStorage.removeItem("pSmartContractWritePending");
     }
+  }
+
+  useEffect(() => {
+    UpdateStates();
   }, [agreement.data?.state]);
 
   return (
     <div className="flex flex-col gap-4">
       <NoSSR>
         <StepProcess type="participant" step={step} />
-        {step === ParticipantSteps.CreateListing && <PCreateAgreement />}
+        {step === ParticipantSteps.CreateListing && (
+          <PCreateAgreement onSolidityEvent={onSolidityEvent} />
+        )}
         {step === ParticipantSteps.FindCourier && (
           <PFindCourier
             cost={agreement.data?.cost.toString()!}
             dropoff={agreement.data?.dropoff!}
             pickup={agreement.data?.pickup!}
+            onSolidityEvent={onSolidityEvent}
           />
         )}
         {step === ParticipantSteps.AcceptCourier && (
-          <PAcceptCourier address={agreement.data?.courier!} />
+          <PAcceptCourier
+            address={agreement.data?.courier!}
+            onSolidityEvent={onSolidityEvent}
+          />
         )}
         {step === ParticipantSteps.Delivery && (
-          <PDelivery address={agreement.data?.courier!} />
+          <PDelivery
+            address={agreement.data?.courier!}
+            onSolidityEvent={onSolidityEvent}
+          />
         )}
-        {step === ParticipantSteps.AgreeCompletion && <PCompleteAgreement />}
-        {step === ParticipantSteps.Complete && <PComplete />}
+        {step === ParticipantSteps.AgreeCompletion && (
+          <PAgreeDeliveryFinished onSolidityEvent={onSolidityEvent} />
+        )}
+        {step === ParticipantSteps.Complete && (
+          <PComplete onSolidityEvent={onSolidityEvent} />
+        )}
       </NoSSR>
     </div>
   );

@@ -1,9 +1,13 @@
 import { ParticipantSteps } from "@components/stepProcess";
 import { abi, contractAddress } from "contracts/Pigeon";
 import { useAppStore } from "stores/useAppStore";
-import { useContractWrite } from "wagmi";
+import { useContractEvent, useContractWrite } from "wagmi";
 
-export default function PCompleteAgreement() {
+export default function PAgreeDeliveryFinished({
+  onSolidityEvent,
+}: {
+  onSolidityEvent: () => void;
+}) {
   const setLoading = useAppStore((state) => state.setLoading);
   const setLoadingMessage = useAppStore((state) => state.setLoadingMessage);
   const complete = useContractWrite({
@@ -11,6 +15,15 @@ export default function PCompleteAgreement() {
     abi: abi,
     mode: "recklesslyUnprepared",
     functionName: "agreeDeliveryFinished",
+  });
+  useContractEvent({
+    address: contractAddress,
+    abi: abi,
+    eventName: "ParticipantAgreedDeliveryFinished",
+    listener: (event) => {
+      onSolidityEvent();
+      console.log("ParticipantAgreedDeliveryFinished");
+    },
   });
   function onSubmit() {
     setLoading(true);
@@ -40,7 +53,7 @@ export default function PCompleteAgreement() {
     <div className="flex flex-col">
       {pSmartContractWritePending ? (
         <span>
-          The smart contract agreement is being confirmed on the blockchain.
+          The smart contract agreement is being confirmed on the blockchain.re
         </span>
       ) : (
         <>
