@@ -3,13 +3,13 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead } from "wagmi";
 import StepProcess, { CourierSteps } from "@components/stepProcess";
-import NoSSR from "react-no-ssr";
 
+import NoSSR from "react-no-ssr";
 import CAgreement from "../../components/courier/cAgreement";
 import CComplete from "../../components/courier/cComplete";
 import CDelivery from "../../components/courier/cDelivery";
 import CFindListing from "../../components/courier/cFindListing";
-import CWaitingCompletion from "../../components/courier/cWaitingCompletion";
+import CWaitingParticipantAgreeDelivery from "../../components/courier/cWaitingParticipantAgreeDelivery";
 
 export default function Courier() {
   const account = useAccount();
@@ -34,7 +34,6 @@ export default function Courier() {
       localStorage.getItem("selectedPackageAddress") || ""
     );
     if (agreementProbablyExists) {
-      // setStep(CourierSteps.Agreement);
       switch (agreement.data?.state) {
         case 0:
           setStep(CourierSteps.FindListing);
@@ -53,12 +52,14 @@ export default function Courier() {
           break;
       }
     }
-    // replace with curr smart contract step write complete as int for step
-    // track step, once step changes, reset to false
+
+    // change to database later
     if (validAdrInLocalStorage) {
       setAddress(localStorage.getItem("selectedPackageAddress")!);
-      // find a nicer solution for this or make sure it works ^^^
     }
+
+    // if you select a package that you are responsible
+    // for, automatically assign in the state
     if (agreement.data?.courier === account.address) {
       setAddress(agreement.data?.participant!);
       localStorage.setItem(
@@ -73,7 +74,7 @@ export default function Courier() {
   }, [agreement.data?.state]);
 
   const onSolidityEvent = () => {
-    agreement.refetch()
+    agreement.refetch();
     console.log("Agreement State", agreement.data?.state);
     UpdateStates();
   };
@@ -100,7 +101,10 @@ export default function Courier() {
         />
       )}
       {step === CourierSteps.WaitingCompletion && (
-        <CWaitingCompletion onSolidityEvent={onSolidityEvent} />
+        <CWaitingParticipantAgreeDelivery
+          onSolidityEvent={onSolidityEvent}
+          address={address as string}
+        />
       )}
       {step === CourierSteps.Complete && (
         <CComplete

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
+
+import NoSSR from "react-no-ssr";
 import Header from "./header";
 
 interface LayoutProps {

@@ -1,9 +1,9 @@
 import { CourierSteps } from "@components/stepProcess";
+import SmartContractWrite from "@components/ui/smartContractWrite";
 import { abi, contractAddress } from "contracts/Pigeon";
-import { ethers } from "ethers";
 import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
-import { useContractEvent, useContractRead, useContractWrite } from "wagmi";
+import { useContractEvent, useContractWrite } from "wagmi";
 
 export default function CDelivery({
   address,
@@ -24,6 +24,7 @@ export default function CDelivery({
     abi: abi,
     eventName: "CourierMarkedDeliveryFinished",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("CourierMarkedDeliveryFinished");
     },
@@ -58,7 +59,10 @@ export default function CDelivery({
     <div>
       <NoSSR>
         {cSmartContractWritePending ? (
-          <span>Smart contract write pending on blockchain...</span>
+          <SmartContractWrite
+            name="Mark delivery as finidhed"
+            tx={markAsDelivered.data?.hash}
+          />
         ) : (
           <>
             <h3>Agreement made. Delivery Ready.</h3>

@@ -1,6 +1,6 @@
+import SmartContractWrite from "@components/ui/smartContractWrite";
 import { abi, contractAddress } from "contracts/Pigeon";
-import { ethers } from "ethers";
-import { useContractEvent, useContractRead } from "wagmi";
+import { useContractEvent } from "wagmi";
 
 export default function CAgreement({
   address,
@@ -16,6 +16,7 @@ export default function CAgreement({
     abi: abi,
     eventName: "ParticipantAcceptedCourier",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("ParticipantAcceptedCourier");
     },
@@ -25,13 +26,14 @@ export default function CAgreement({
     abi: abi,
     eventName: "ParticipantRejectedCourier",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("ParticipantRejectedCourier");
     },
   });
   return (
     <div>
-      {state === 0 && <span>Awaiting smart contract write</span>}
+      {state === 0 && <span>How are you here?</span>}
       {state === 1 && (
         <span>
           Package has been selected. Waiting for participant to agree.

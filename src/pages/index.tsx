@@ -1,10 +1,10 @@
-import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-import NoSSR from "react-no-ssr";
+import { useSession } from "next-auth/react";
 import { api } from "@utils/api";
 import { useAccount } from "wagmi";
+
+import Head from "next/head";
+import Link from "next/link";
+import NoSSR from "react-no-ssr";
 
 export default function Home() {
   const session = useSession();

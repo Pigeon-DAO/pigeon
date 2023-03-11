@@ -6,7 +6,7 @@ import PCreateAgreement from "../../components/participant/pCreateAgreement";
 import PFindCourier from "../../components/participant/pFindCourier";
 import NoSSR from "react-no-ssr";
 import PAcceptCourier from "@components/participant/pAcceptCourier";
-import PDelivery from "@components/participant/pDelivery";
+import PWaitForDelivery from "@components/participant/pWaitForDelivery";
 import PAgreeDeliveryFinished from "@components/participant/pAgreeDeliveryFinished";
 import PComplete from "@components/participant/pComplete";
 
@@ -60,7 +60,10 @@ export default function Participant() {
       <NoSSR>
         <StepProcess type="participant" step={step} />
         {step === ParticipantSteps.CreateListing && (
-          <PCreateAgreement onSolidityEvent={onSolidityEvent} />
+          <PCreateAgreement
+            onSolidityEvent={onSolidityEvent}
+            address={account.address as string}
+          />
         )}
         {step === ParticipantSteps.FindCourier && (
           <PFindCourier
@@ -77,16 +80,22 @@ export default function Participant() {
           />
         )}
         {step === ParticipantSteps.Delivery && (
-          <PDelivery
+          <PWaitForDelivery
             address={agreement.data?.courier!}
             onSolidityEvent={onSolidityEvent}
           />
         )}
         {step === ParticipantSteps.AgreeCompletion && (
-          <PAgreeDeliveryFinished onSolidityEvent={onSolidityEvent} />
+          <PAgreeDeliveryFinished
+            onSolidityEvent={onSolidityEvent}
+            address={account.address as string}
+          />
         )}
         {step === ParticipantSteps.Complete && (
-          <PComplete onSolidityEvent={onSolidityEvent} />
+          <PComplete
+            onSolidityEvent={onSolidityEvent}
+            address={account.address as string}
+          />
         )}
       </NoSSR>
     </div>

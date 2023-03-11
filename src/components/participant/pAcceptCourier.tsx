@@ -1,9 +1,11 @@
 import { ParticipantSteps } from "@components/stepProcess";
 import { api } from "@utils/api";
 import { abi, contractAddress } from "contracts/Pigeon";
-import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
+
+import NoSSR from "react-no-ssr";
+import SmartContractWrite from "@components/ui/smartContractWrite";
 
 export default function PAcceptCourier({
   address,
@@ -30,6 +32,7 @@ export default function PAcceptCourier({
     abi: abi,
     eventName: "ParticipantAcceptedCourier",
     listener: (event) => {
+      if (event !== address) return;
       console.log("CourierAccepted", event);
       onSolidityEvent();
     },
@@ -83,14 +86,19 @@ export default function PAcceptCourier({
 
   return (
     <div>
-      <h3>Accept this Courier?</h3>
       <NoSSR>
         {pSmartContractWritePending ? (
           <span>
-            Your accept/reject request is pending on the smart contract.
+            <SmartContractWrite
+              name={`${
+                !!acceptCourer.data?.hash ? "Accept" : "Reject"
+              } Courier`}
+              tx={acceptCourer.data?.hash ?? rejectCourier.data?.hash}
+            />
           </span>
         ) : (
           <div className="flex flex-col gap-2">
+            <h3>Accept this Courier?</h3>
             {courier.data?.image && (
               <img
                 src={courier.data?.image}

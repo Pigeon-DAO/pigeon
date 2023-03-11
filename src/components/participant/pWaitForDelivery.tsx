@@ -1,7 +1,7 @@
 import { abi, contractAddress } from "contracts/Pigeon";
 import { useContractEvent } from "wagmi";
 
-export default function PDelivery({
+export default function PWaitForDelivery({
   address,
   onSolidityEvent,
 }: {
@@ -13,6 +13,7 @@ export default function PDelivery({
     abi: abi,
     eventName: "CourierMarkedDeliveryFinished",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("CourierMarkedDeliveryFinished");
     },

@@ -1,9 +1,11 @@
 import { abi, contractAddress } from "contracts/Pigeon";
 import { useContractEvent } from "wagmi";
 
-export default function CWaitingCompletion({
+export default function CWaitingParticipantAgreeDelivery({
+  address,
   onSolidityEvent,
 }: {
+  address: string;
   onSolidityEvent: () => void;
 }) {
   useContractEvent({
@@ -11,6 +13,7 @@ export default function CWaitingCompletion({
     abi: abi,
     eventName: "ParticipantAgreedDeliveryFinished",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("ParticipantAgreedDeliveryFinished");
     },

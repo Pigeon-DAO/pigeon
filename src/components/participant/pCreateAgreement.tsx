@@ -1,15 +1,18 @@
 import { ParticipantSteps } from "@components/stepProcess";
-import Participant from "@pages/participant";
 import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
 import { useState } from "react";
-import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
+import NoSSR from "react-no-ssr";
+import SmartContractWrite from "@components/ui/smartContractWrite";
+
 export default function PCreateAgreement({
+  address,
   onSolidityEvent,
 }: {
+  address: string;
   onSolidityEvent: () => void;
 }) {
   const [createAgreementArgs, setCreateAgreementArgs] = useState<
@@ -35,6 +38,7 @@ export default function PCreateAgreement({
     abi: abi,
     eventName: "AgreementCreated",
     listener: (event) => {
+      if (event !== address) return;
       console.log("AgreementCreated", event);
       onSolidityEvent();
     },
@@ -94,10 +98,10 @@ export default function PCreateAgreement({
       <h2>Create Agreement</h2>
       <NoSSR>
         {pSmartContractWritePending ? (
-          <>
-            <h3>Agreement was created on a smart contract.</h3>
-            <span>The smart contract is processing your request...</span>
-          </>
+          <SmartContractWrite
+            name="Create an Agreement"
+            tx={createAgreement.data?.hash}
+          />
         ) : (
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">

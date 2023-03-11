@@ -1,11 +1,13 @@
 import { CourierSteps } from "@components/stepProcess";
 import { abi, contractAddress } from "contracts/Pigeon";
 import { ethers } from "ethers";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FaEthereum } from "react-icons/fa";
-import NoSSR from "react-no-ssr";
 import { useAppStore } from "stores/useAppStore";
 import { useContractEvent, useContractRead, useContractWrite } from "wagmi";
+
+import NoSSR from "react-no-ssr";
+import SmartContractWrite from "@components/ui/smartContractWrite";
 
 export default function CFindListing({
   address,
@@ -33,8 +35,9 @@ export default function CFindListing({
     address: contractAddress,
     abi: abi,
     eventName: "CourierSelectedAgreement",
-    listener: (result) => {
-      console.log("result ", result);
+    listener: (event) => {
+      if (event !== address) return;
+      console.log("result ", event);
       agreement.refetch();
     },
   });
@@ -90,7 +93,10 @@ export default function CFindListing({
         <NoSSR>
           <>
             {cSmartContractWritePending ? (
-              <span>Smart contract selection pending...</span>
+              <SmartContractWrite
+                name="Select Listing"
+                tx={writeAgreement.data?.hash}
+              />
             ) : (
               <>
                 <label htmlFor="createAgreementPickup">Pickup</label>

@@ -1,11 +1,14 @@
 import { ParticipantSteps } from "@components/stepProcess";
+import SmartContractWrite from "@components/ui/smartContractWrite";
 import { abi, contractAddress } from "contracts/Pigeon";
 import { useAppStore } from "stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
 export default function PAgreeDeliveryFinished({
+  address,
   onSolidityEvent,
 }: {
+  address: string;
   onSolidityEvent: () => void;
 }) {
   const setLoading = useAppStore((state) => state.setLoading);
@@ -21,6 +24,7 @@ export default function PAgreeDeliveryFinished({
     abi: abi,
     eventName: "ParticipantAgreedDeliveryFinished",
     listener: (event) => {
+      if (event !== address) return;
       onSolidityEvent();
       console.log("ParticipantAgreedDeliveryFinished");
     },
@@ -52,9 +56,10 @@ export default function PAgreeDeliveryFinished({
   return (
     <div className="flex flex-col">
       {pSmartContractWritePending ? (
-        <span>
-          The smart contract agreement is being confirmed on the blockchain.re
-        </span>
+        <SmartContractWrite
+          name="Agree Delivery is Finished"
+          tx={complete.data?.hash}
+        />
       ) : (
         <>
           <span>

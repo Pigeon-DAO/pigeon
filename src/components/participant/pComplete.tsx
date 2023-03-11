@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import PCreateAgreement from "./pCreateAgreement";
 
 export default function PComplete({
-  onSolidityEvent
-}:{
-  onSolidityEvent: () => void
+  address,
+  onSolidityEvent,
+}: {
+  address: string;
+  onSolidityEvent: () => void;
 }) {
   useEffect(() => {
     localStorage.setItem("pCreatedAgreement", "false");
@@ -13,7 +15,7 @@ export default function PComplete({
     <div>
       <h1>Transaction completed.</h1>
       <span>You may do another agreement.</span>
-      <PCreateAgreement onSolidityEvent={onSolidityEvent}  />
+      <PCreateAgreement onSolidityEvent={onSolidityEvent} address={address} />
     </div>
   );
 }

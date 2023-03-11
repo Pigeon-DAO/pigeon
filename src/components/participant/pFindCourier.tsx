@@ -15,11 +15,13 @@ export default function FindCourier({
   onSolidityEvent: () => void;
 }) {
   const account = useAccount();
+
   useContractEvent({
     address: contractAddress,
     abi: abi,
     eventName: "CourierSelectedAgreement",
     listener: (event) => {
+      if (event !== account.address) return;
       onSolidityEvent();
       console.log("CourierSelectedAgreement");
     },

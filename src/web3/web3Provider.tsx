@@ -1,7 +1,6 @@
 import {
   RainbowKitProvider,
   getDefaultWallets,
-  connectorsForWallets,
   midnightTheme,
 } from "@rainbow-me/rainbowkit";
 import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";

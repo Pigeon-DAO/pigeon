@@ -1,9 +1,10 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useAccount } from "wagmi";
+import { useRouter } from "next/router";
+
 import ConnectWalletButton from "web3/connectWalletButton";
 import Pigeon from "assets/pigeon.png";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export default function Header() {
   const account = useAccount();
