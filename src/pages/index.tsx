@@ -36,71 +36,73 @@ export default function Home() {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Pigeon MVP
           </h1>
-          {displayLinkWarning && (
-            <div className="flex flex-col justify-start rounded-xl bg-yellow-700/90 px-4 py-4 ">
-              {user.data?.address != account.address ? (
-                <h2>
-                  Your current address is different from your account's address.
-                </h2>
-              ) : (
-                <h2>Please link your address to this account.</h2>
-              )}
-              {!!user.data?.address ? (
-                <span>
-                  You must either connect with your account's linked address{" "}
-                  {user.data?.address} or link your account to your current
-                  wallet.
-                </span>
-              ) : (
-                <span>
-                  The address is UNIQUE to this account, and cannot be used
-                  anywhere. It is used to identify you on this platform. It may
-                  be changed later.
-                </span>
-              )}
+          <NoSSR>
+            {displayLinkWarning && (
+              <div className="flex flex-col justify-start rounded-xl bg-yellow-700/90 px-4 py-4 ">
+                {user.data?.address != account.address ? (
+                  <h2>
+                    Your current address is different from your account's
+                    address.
+                  </h2>
+                ) : (
+                  <h2>Please link your address to this account.</h2>
+                )}
+                {!!user.data?.address ? (
+                  <span>
+                    You must either connect with your account's linked address{" "}
+                    {user.data?.address} or link your account to your current
+                    wallet.
+                  </span>
+                ) : (
+                  <span>
+                    The address is UNIQUE to this account, and cannot be used
+                    anywhere. It is used to identify you on this platform. It
+                    may be changed later.
+                  </span>
+                )}
 
-              <button
-                className="btn"
-                onClick={() => {
-                  linkAddress.mutate({ address: account.address! });
-                }}>
-                Link my wallet
-              </button>
-            </div>
-          )}
-          <div className="flex flex-col">
-            <h3>{session.status === "loading" && <p>Loading...</p>}</h3>
-            {session.status === "unauthenticated" && (
-              <span>Please sign in.</span>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    linkAddress.mutate({ address: account.address! });
+                  }}>
+                  Link my wallet
+                </button>
+              </div>
             )}
-            <NoSSR>
-              {!account.address && <span>Please connect your wallet.</span>}
-            </NoSSR>
 
-            {session.status === "authenticated" &&
-              account.isConnected &&
-              !displayLinkWarning && (
-                <>
-                  <h3>How are you going to use Pigeon?</h3>
-                  <div className="flex flex-col gap-2">
-                    <span>
-                      By being a participant, you will create the agreement and
-                      work with the driver.
-                    </span>
-                    <Link href="/participant">
-                      <button>Participate</button>
-                    </Link>
-                    <span>
-                      By being the courier, you will be responsible for
-                      delivering to participants' needs.
-                    </span>
-                    <Link href="/courier">
-                      <button>Be a courier</button>
-                    </Link>
-                  </div>
-                </>
+            <div className="flex flex-col">
+              <h3>{session.status === "loading" && <p>Loading...</p>}</h3>
+              {session.status === "unauthenticated" && (
+                <span>Please sign in.</span>
               )}
-          </div>
+              {!account.address && <span>Please connect your wallet.</span>}
+
+              {session.status === "authenticated" &&
+                account.isConnected &&
+                !displayLinkWarning && (
+                  <>
+                    <h3>How are you going to use Pigeon?</h3>
+                    <div className="flex flex-col gap-2">
+                      <span>
+                        By being a participant, you will create the agreement
+                        and work with the driver.
+                      </span>
+                      <Link href="/participant">
+                        <button>Participate</button>
+                      </Link>
+                      <span>
+                        By being the courier, you will be responsible for
+                        delivering to participants' needs.
+                      </span>
+                      <Link href="/courier">
+                        <button>Be a courier</button>
+                      </Link>
+                    </div>
+                  </>
+                )}
+            </div>
+          </NoSSR>
         </div>
       </main>
     </>

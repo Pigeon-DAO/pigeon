@@ -14,7 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
   console.log(loading);
   console.log(loadingMessage);
   return (
-    <>
+    <div className="relative">
       <Header />
 
       <div className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] pt-24 text-white">
@@ -33,7 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
         )}
       </NoSSR>
-    </>
+    </div>
   );
 };
 
