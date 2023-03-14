@@ -15,6 +15,7 @@ export default function PAcceptCourier({
   onSolidityEvent: () => void;
 }) {
   const courier = api.user.getUserByAddress.useQuery({ address });
+
   const acceptCourer = useContractWrite({
     address: contractAddress,
     abi: abi,
@@ -99,15 +100,24 @@ export default function PAcceptCourier({
         ) : (
           <div className="flex flex-col gap-2">
             <h3>Accept this Courier?</h3>
-            {courier.data?.image && (
-              <img
-                src={courier.data?.image}
-                alt="courier"
-                className="h-32 w-32 rounded-full"
-              />
+            {!courier.data ? (
+              <h2>
+                WARNING: This courier does not have an account here. It is NOT
+                recommended to accept them.
+              </h2>
+            ) : (
+              <>
+                {courier.data?.image && (
+                  <img
+                    src={courier.data?.image}
+                    alt="courier"
+                    className="h-32 w-32 rounded-full"
+                  />
+                )}
+                <span>Name: {courier.data?.name}</span>
+                <span>Address: {courier.data?.address}</span>
+              </>
             )}
-            <span>Name: {courier.data?.name}</span>
-            <span>Address: {courier.data?.address}</span>
             <button className="btn" onClick={() => onAccept()}>
               Accept {courier.data?.name}
             </button>

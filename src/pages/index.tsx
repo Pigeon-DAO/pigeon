@@ -20,6 +20,10 @@ export default function Home() {
     },
   });
 
+  const displayLinkWarning =
+    (!!user.data && !user.data?.address && account.address) ||
+    user.data?.address != account.address;
+
   return (
     <>
       <Head>
@@ -32,14 +36,29 @@ export default function Home() {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Pigeon MVP
           </h1>
-          {!!user.data && !user.data?.address && account.address && (
+          {displayLinkWarning && (
             <div className="flex flex-col justify-start rounded-xl bg-yellow-700/90 px-4 py-4 ">
-              <h2>WARNING: Please link your address to this account.</h2>
-              <span>
-                The address is UNIQUE to this account, and cannot be used
-                anywhere. It is used to identify you on this platform. It may be
-                changed later.
-              </span>
+              {user.data?.address != account.address ? (
+                <h2>
+                  Your current address is different from your account's address.
+                </h2>
+              ) : (
+                <h2>Please link your address to this account.</h2>
+              )}
+              {!!user.data?.address ? (
+                <span>
+                  You must either connect with your account's linked address{" "}
+                  {user.data?.address} or link your account to your current
+                  wallet.
+                </span>
+              ) : (
+                <span>
+                  The address is UNIQUE to this account, and cannot be used
+                  anywhere. It is used to identify you on this platform. It may
+                  be changed later.
+                </span>
+              )}
+
               <button
                 className="btn"
                 onClick={() => {
@@ -58,27 +77,29 @@ export default function Home() {
               {!account.address && <span>Please connect your wallet.</span>}
             </NoSSR>
 
-            {session.status === "authenticated" && account.isConnected && (
-              <>
-                <h3>How are you going to use Pigeon?</h3>
-                <div className="flex flex-col gap-2">
-                  <span>
-                    By being a participant, you will create the agreement and
-                    work with the driver.
-                  </span>
-                  <Link href="/participant">
-                    <button>Participate</button>
-                  </Link>
-                  <span>
-                    By being the courier, you will be responsible for delivering
-                    to participants' needs.
-                  </span>
-                  <Link href="/courier">
-                    <button>Be a courier</button>
-                  </Link>
-                </div>
-              </>
-            )}
+            {session.status === "authenticated" &&
+              account.isConnected &&
+              !displayLinkWarning && (
+                <>
+                  <h3>How are you going to use Pigeon?</h3>
+                  <div className="flex flex-col gap-2">
+                    <span>
+                      By being a participant, you will create the agreement and
+                      work with the driver.
+                    </span>
+                    <Link href="/participant">
+                      <button>Participate</button>
+                    </Link>
+                    <span>
+                      By being the courier, you will be responsible for
+                      delivering to participants' needs.
+                    </span>
+                    <Link href="/courier">
+                      <button>Be a courier</button>
+                    </Link>
+                  </div>
+                </>
+              )}
           </div>
         </div>
       </main>

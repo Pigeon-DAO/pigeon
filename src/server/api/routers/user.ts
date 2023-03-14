@@ -16,12 +16,14 @@ export const userRouter = createTRPCRouter({
         address: z.string(),
       })
     )
-    .query(({ ctx, input }) => {
-      return ctx.prisma.user.findFirst({
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.prisma.user.findFirst({
         where: {
           address: input.address,
         },
       });
+      console.log(user);
+      return user;
     }),
   linkAddress: protectedProcedure
     .input(
