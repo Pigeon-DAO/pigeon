@@ -12,36 +12,39 @@ export default function Header() {
   const pathname = useRouter().pathname;
   const user = session.data?.user;
   return (
-    <div className="absolute right-0 left-0 top-0 flex h-20 w-full items-center justify-between px-4">
+    <div className="fixed right-0 left-0 top-0 flex h-20 w-full items-center justify-between bg-black/40 pl-4 pr-8 backdrop-blur-sm">
       <Link href="/">
-        <img src={Pigeon.src} className="h-20 w-20"></img>
+        <div className="flex items-center">
+          <img src={Pigeon.src} className="h-20 w-20"></img>
+          <h2 className="mb-1 text-white">
+            {pathname === "/" && "Pigeon MVP • Home"}
+            {pathname === "/profile" && "Pigeon MVP • My Profile"}
+            {pathname === "/courier" && "Pigeon MVP • Courier"}
+            {pathname === "/participant" && "Pigeon MVP • Participant"}
+          </h2>
+        </div>
       </Link>
-      <h2 className="text-white">
-        {pathname === "/" && "Home"}
-        {pathname === "/courier" && "Courier"}
-        {pathname === "/participant" && "Participant"}
-      </h2>
+
       <div className="flex items-center gap-2">
         {session.status === "authenticated" && (
           <div className="flex gap-2">
-            {!account.address && <ConnectWalletButton />}
-            <div className="flex w-full flex-col items-end">
-              <button
-                className="btn flex w-fit items-center justify-end gap-2 py-1"
-                onClick={!!session.data ? () => signOut() : () => signIn()}>
-                <div className="flex flex-col text-end">
-                  <span>{user?.name}</span>
-                </div>
-
+            <div className="dropdown-bottom dropdown-end dropdown">
+              <label tabIndex={0} className="btn m-1 flex gap-4">
                 {user?.image && (
-                  <img
-                    src={user.image}
-                    className="h-10 w-10 rounded-full"></img>
+                  <img src={user.image} className="h-8 w-8 rounded-full" />
                 )}
-              </button>
-              {account && (
-                <span className="text-sm text-white">{account.address}</span>
-              )}
+                <span>{user?.name}</span>
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
+                <li>
+                  <Link href="/profile">My Profile</Link>
+                </li>
+                <li>
+                  <span onClick={() => signOut()}>Sign Out</span>
+                </li>
+              </ul>
             </div>
           </div>
         )}

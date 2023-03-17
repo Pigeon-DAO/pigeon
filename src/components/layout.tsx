@@ -4,20 +4,47 @@ import { useAppStore } from "stores/useAppStore";
 import NoSSR from "react-no-ssr";
 import Header from "./header";
 
+import { useCallback } from "react";
+import Particles from "react-tsparticles";
+import { Container, Engine, SizeMode } from "tsparticles-engine";
+import { loadFull } from "tsparticles";
+import conf from "../particles";
+
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const particlesInit = useCallback(async (engine: Engine) => {
+    console.log(engine);
+
+    // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+  }, []);
+
+  const particlesLoaded = useCallback(
+    async (container: Container | undefined) => {
+      await console.log(container);
+    },
+    []
+  );
   const loading = useAppStore((state) => state.loading);
   const loadingMessage = useAppStore((state) => state.loadingMessage);
-  console.log(loading);
-  console.log(loadingMessage);
+
   return (
     <div className="relative">
+      <Particles
+        id="tsparticles"
+        init={particlesInit}
+        loaded={particlesLoaded}
+        // @ts-ignore
+        options={conf}
+      />
       <Header />
 
-      <div className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] pt-24 text-white">
+      <div className="flex min-h-screen flex-col items-center bg-gradient-to-b pt-24 text-white">
         {children}
       </div>
       <NoSSR>

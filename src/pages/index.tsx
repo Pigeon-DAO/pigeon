@@ -13,13 +13,6 @@ export default function Home() {
     enabled: session.status === "authenticated",
   });
 
-  const linkAddress = api.user.linkAddress.useMutation({
-    onSuccess: () => {
-      console.log("sucessful");
-      user.refetch();
-    },
-  });
-
   const displayLinkWarning =
     (!!user.data && !user.data?.address && account.address) ||
     user.data?.address != account.address;
@@ -32,71 +25,50 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen">
-        <div className="container flex flex-col items-center gap-12 px-4">
+        <div className="container mt-14 flex flex-col items-center gap-12 px-4">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Pigeon MVP
+            Welcome to Pigeon
           </h1>
-          <NoSSR>
-            {displayLinkWarning && (
-              <div className="flex flex-col justify-start rounded-xl bg-yellow-700/90 px-4 py-4 ">
-                {user.data?.address != account.address ? (
-                  <h2>
-                    Your current address is different from your account's
-                    address.
-                  </h2>
-                ) : (
-                  <h2>Please link your address to this account.</h2>
-                )}
-                {!!user.data?.address ? (
-                  <span>
-                    You must either connect with your account's linked address{" "}
-                    {user.data?.address} or link your account to your current
-                    wallet.
-                  </span>
-                ) : (
-                  <span>
-                    The address is UNIQUE to this account, and cannot be used
-                    anywhere. It is used to identify you on this platform. It
-                    may be changed later.
-                  </span>
-                )}
 
-                <button
-                  className="btn"
-                  onClick={() => {
-                    linkAddress.mutate({ address: account.address! });
-                  }}>
-                  Link my wallet
-                </button>
+          <NoSSR>
+            {(!user.data ||
+              !account.address ||
+              session.status != "authenticated") && (
+              <div className="flex flex-col justify-start gap-2 rounded-xl bg-yellow-700/90 px-4 py-4">
+                <h2>Your account setup is not complete.</h2>
+                <h3>
+                  Please review <Link href="/profile">My Profile</Link> to
+                  finish it.
+                </h3>
+
+                <Link href="/profile">
+                  <button className="btn w-full">My Profile</button>
+                </Link>
               </div>
             )}
 
             <div className="flex flex-col">
-              <h3>{session.status === "loading" && <p>Loading...</p>}</h3>
-              {session.status === "unauthenticated" && (
-                <span>Please sign in.</span>
-              )}
-              {!account.address && <span>Please connect your wallet.</span>}
-
               {session.status === "authenticated" &&
                 account.isConnected &&
                 !displayLinkWarning && (
                   <>
-                    <h3>How are you going to use Pigeon?</h3>
+                    <h2>How may we assist you?</h2>
                     <div className="flex flex-col gap-2">
-                      <span>
+                      <p className="py-4 text-xl">
                         By being a participant, you will create the agreement
                         and work with the driver.
-                      </span>
+                      </p>
                       <Link href="/participant">
-                        <button>Participate</button>
+                        <button className="btn-primary btn">Participate</button>
                       </Link>
-                      <span>
+                      <p className="py-4 text-xl">
                         By being the courier, you will be responsible for
                         delivering to participants' needs.
-                      </span>
+                      </p>
                       <Link href="/courier">
-                        <button>Be a courier</button>
+                        <button className="btn-primary btn">
+                          Be a courier
+                        </button>
                       </Link>
                     </div>
                   </>
