@@ -1,4 +1,4 @@
-import { abi, contractAddress } from "contracts/Pigeon";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import { useContractEvent } from "wagmi";
 
 export default function CWaitingParticipantAgreeDelivery({

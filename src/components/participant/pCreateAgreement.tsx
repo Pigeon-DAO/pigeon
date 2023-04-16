@@ -1,12 +1,12 @@
-import { ParticipantSteps } from "@components/stepProcess";
-import { abi, contractAddress } from "contracts/Pigeon";
+import { ParticipantSteps } from "~/components/stepProcess";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import { ethers } from "ethers";
 import { useState } from "react";
-import { useAppStore } from "stores/useAppStore";
+import { useAppStore } from "~/stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
 import NoSSR from "react-no-ssr";
-import SmartContractWrite from "@components/ui/smartContractWrite";
+import SmartContractWrite from "~/components/ui/smartContractWrite";
 
 export default function PCreateAgreement({
   address,

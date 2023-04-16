@@ -1,8 +1,8 @@
-import { CourierSteps } from "@components/stepProcess";
-import SmartContractWrite from "@components/ui/smartContractWrite";
-import { abi, contractAddress } from "contracts/Pigeon";
+import { CourierSteps } from "~/components/stepProcess";
+import SmartContractWrite from "~/components/ui/smartContractWrite";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import NoSSR from "react-no-ssr";
-import { useAppStore } from "stores/useAppStore";
+import { useAppStore } from "~/stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
 export default function CDelivery({

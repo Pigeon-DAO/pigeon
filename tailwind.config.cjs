@@ -1,24 +1,38 @@
+const plugin = require("tailwindcss/plugin");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
-    screens: {
-      sm: "640px",
-      // => @media (min-width: 640px) { ... }
-
-      md: "768px",
-      // => @media (min-width: 768px) { ... }
-
-      lg: "1024px",
-      // => @media (min-width: 1024px) { ... }
-
-      xl: "1280px",
-      // => @media (min-width: 1280px) { ... }
-
-      "2xl": "1536px",
-      // => @media (min-width: 1536px) { ... }
+    extend: {
+      colors: {
+        primary: "#082340",
+        primaryDarker: "#051C34",
+        accent: "#2ADACC",
+        accent2: "#545252",
+        accent3: "#153E5B",
+      },
+      fontFamily: {
+        Nunito: ["Nunito"],
+        Poppins: ["Poppins"],
+      },
+      textShadow: {
+        sm: "0 1px 2px rgb(0, 0, 0, 0.4)",
+        DEFAULT: "0 2px 4px rgb(0, 0, 0, 0.5)",
+        lg: "0 8px 16px rgb(0, 0, 0, 0.5)",
+      },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "text-shadow": (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
+      );
+    }),
+  ],
 };

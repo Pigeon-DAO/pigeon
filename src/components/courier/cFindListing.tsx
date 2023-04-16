@@ -1,13 +1,13 @@
-import { CourierSteps } from "@components/stepProcess";
-import { abi, contractAddress } from "contracts/Pigeon";
+import { CourierSteps } from "~/components/stepProcess";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import { ethers } from "ethers";
 import { Dispatch, SetStateAction, useState } from "react";
 import { FaEthereum } from "react-icons/fa";
-import { useAppStore } from "stores/useAppStore";
+import { useAppStore } from "~/stores/useAppStore";
 import { useContractEvent, useContractRead, useContractWrite } from "wagmi";
 
 import NoSSR from "react-no-ssr";
-import SmartContractWrite from "@components/ui/smartContractWrite";
+import SmartContractWrite from "~/components/ui/smartContractWrite";
 
 export default function CFindListing({
   address,

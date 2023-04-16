@@ -1,14 +1,14 @@
-import StepProcess, { ParticipantSteps } from "@components/stepProcess";
+import StepProcess, { ParticipantSteps } from "~/components/stepProcess";
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead } from "wagmi";
-import { abi, contractAddress } from "contracts/Pigeon";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import PCreateAgreement from "../../components/participant/pCreateAgreement";
 import PFindCourier from "../../components/participant/pFindCourier";
 import NoSSR from "react-no-ssr";
-import PAcceptCourier from "@components/participant/pAcceptCourier";
-import PWaitForDelivery from "@components/participant/pWaitForDelivery";
-import PAgreeDeliveryFinished from "@components/participant/pAgreeDeliveryFinished";
-import PComplete from "@components/participant/pComplete";
+import PAcceptCourier from "~/components/participant/pAcceptCourier";
+import PWaitForDelivery from "~/components/participant/pWaitForDelivery";
+import PAgreeDeliveryFinished from "~/components/participant/pAgreeDeliveryFinished";
+import PComplete from "~/components/participant/pComplete";
 
 export default function Participant() {
   const [step, setStep] = useState<ParticipantSteps>(

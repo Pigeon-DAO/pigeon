@@ -1,4 +1,4 @@
-import { abi, contractAddress } from "contracts/Pigeon";
+import { abi, contractAddress } from "~/contracts/Pigeon";
 import { ethers } from "ethers";
 import { FaEthereum } from "react-icons/fa";
 import { useAccount, useContractEvent } from "wagmi";

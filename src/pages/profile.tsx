@@ -1,9 +1,9 @@
-import Alert from "@components/ui/alert";
-import { api } from "@utils/api";
+import Alert from "~/components/ui/alert";
+import { api } from "~/utils/api";
 import { signIn, useSession } from "next-auth/react";
 import NoSSR from "react-no-ssr";
 import { useAccount } from "wagmi";
-import ConnectWalletButton from "web3/connectWalletButton";
+import ConnectWalletButton from "~/web3/connectWalletButton";
 
 export default function Profile() {
   const account = useAccount();

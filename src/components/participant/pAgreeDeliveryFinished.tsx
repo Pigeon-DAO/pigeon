@@ -1,7 +1,7 @@
-import { ParticipantSteps } from "@components/stepProcess";
-import SmartContractWrite from "@components/ui/smartContractWrite";
-import { abi, contractAddress } from "contracts/Pigeon";
-import { useAppStore } from "stores/useAppStore";
+import { ParticipantSteps } from "~/components/stepProcess";
+import SmartContractWrite from "~/components/ui/smartContractWrite";
+import { abi, contractAddress } from "~/contracts/Pigeon";
+import { useAppStore } from "~/stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
 export default function PAgreeDeliveryFinished({

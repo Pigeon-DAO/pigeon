@@ -1,25 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  background-color: #082340;
+}
+
 html {
   background-color: black;
 }
 @layer components {
-  button {
-    @apply rounded-full bg-white/10 px-4 py-3 font-semibold text-white no-underline transition hover:bg-white/20;
-  }
-
-  input {
-    @apply my-2 mx-2 rounded-xl bg-white/10 px-2 py-3 font-semibold text-white no-underline transition hover:bg-white/20;
-  }
-
   h1 {
-    @apply py-4 text-4xl font-bold;
+    @apply text-6xl font-extrabold text-shadow-lg;
   }
   h2 {
-    @apply py-2 text-2xl font-bold;
+    @apply text-5xl font-bold;
   }
   h3 {
-    @apply py-1 text-xl font-bold;
+    @apply text-2xl font-semibold;
+  }
+  h4 {
+    @apply text-xl;
   }
 }

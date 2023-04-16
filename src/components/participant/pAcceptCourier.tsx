@@ -1,11 +1,11 @@
-import { ParticipantSteps } from "@components/stepProcess";
-import { api } from "@utils/api";
-import { abi, contractAddress } from "contracts/Pigeon";
-import { useAppStore } from "stores/useAppStore";
+import { ParticipantSteps } from "~/components/stepProcess";
+import { api } from "~/utils/api";
+import { abi, contractAddress } from "~/contracts/Pigeon";
+import { useAppStore } from "~/stores/useAppStore";
 import { useContractEvent, useContractWrite } from "wagmi";
 
 import NoSSR from "react-no-ssr";
-import SmartContractWrite from "@components/ui/smartContractWrite";
+import SmartContractWrite from "~/components/ui/smartContractWrite";
 
 export default function PAcceptCourier({
   address,

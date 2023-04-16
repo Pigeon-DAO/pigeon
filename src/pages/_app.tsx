@@ -2,12 +2,13 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-import { api } from "@utils/api";
+import { api } from "~/utils/api";
 
-import Layout from "@components/layout";
-import Web3Provider from "web3/web3Provider";
+import Layout from "~/components/layout/layout";
+import Web3Provider from "~/web3/web3Provider";
 
-import "@styles/globals.css";
+import "~/styles/globals.css";
+
 import "@rainbow-me/rainbowkit/styles.css";
 
 const MyApp: AppType<{ session: Session | null }> = ({
