@@ -29,7 +29,7 @@ function Hero() {
       <div className="absolute right-0 top-0 w-full">
         <img src={dotsVector.src} alt="" className="" />
       </div>
-      <div className="flex h-[400px] min-h-screen w-full flex-col items-center justify-center text-center">
+      <div className="relative flex h-[400px] min-h-screen w-full flex-col items-center justify-center text-center">
         <h1 className="py-4">
           PIGEON DAO, THE<br></br> COURIER DAPP
         </h1>
