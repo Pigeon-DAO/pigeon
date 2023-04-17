@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 import Head from "next/head";
 import Link from "next/link";
 import NoSSR from "react-no-ssr";
+import Button from "~/components/ui/button";
 
 export default function Home() {
   const session = useSession();
@@ -25,9 +26,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen">
-        <div className="container mt-14 flex flex-col items-center gap-12 px-4">
+        <div className="container mt-14 flex flex-col items-center gap-12 px-4 pt-20">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            Welcome to Pigeon
+            Welcome to Pigeon <span className="text-accent">BETA</span>
           </h1>
 
           <NoSSR>
@@ -41,9 +42,11 @@ export default function Home() {
                   finish it.
                 </h3>
 
-                <Link href="/profile">
-                  <button className="btn w-full">My Profile</button>
-                </Link>
+                <Button
+                  text="My Profile"
+                  type="nextLink"
+                  href="/profile"
+                  styleType="accentOutline"></Button>
               </div>
             )}
 
@@ -58,18 +61,22 @@ export default function Home() {
                         By being a participant, you will create the agreement
                         and work with the driver.
                       </p>
-                      <Link href="/participant">
-                        <button className="btn-primary btn">Participate</button>
-                      </Link>
+
+                      <Button
+                        text="Participate"
+                        type="nextLink"
+                        href="/app/participant"
+                        styleType="accentOutline"></Button>
+
                       <p className="py-4 text-xl">
                         By being the courier, you will be responsible for
                         delivering to participants' needs.
                       </p>
-                      <Link href="/courier">
-                        <button className="btn-primary btn">
-                          Be a courier
-                        </button>
-                      </Link>
+                      <Button
+                        text="Be a courier"
+                        type="nextLink"
+                        href="/aap/courier"
+                        styleType="accentOutline"></Button>
                     </div>
                   </>
                 )}

@@ -2,8 +2,8 @@ import StepProcess, { ParticipantSteps } from "~/components/stepProcess";
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead } from "wagmi";
 import { abi, contractAddress } from "~/contracts/Pigeon";
-import PCreateAgreement from "../../components/participant/pCreateAgreement";
-import PFindCourier from "../../components/participant/pFindCourier";
+import PCreateAgreement from "~/components/participant/pCreateAgreement";
+import PFindCourier from "~/components/participant/pFindCourier";
 import NoSSR from "react-no-ssr";
 import PAcceptCourier from "~/components/participant/pAcceptCourier";
 import PWaitForDelivery from "~/components/participant/pWaitForDelivery";
@@ -56,7 +56,7 @@ export default function Participant() {
   }, [agreement.data?.state]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pt-36">
       <NoSSR>
         <StepProcess type="participant" step={step} />
         {step === ParticipantSteps.CreateListing && (

@@ -71,7 +71,7 @@ function HeroSection() {
 }
 function StatsSection() {
   return (
-    <div className="relative flex flex-col items-center bg-primaryDarker py-28">
+    <div className="relative flex flex-col items-center bg-primaryDarker px-8 py-28">
       <OutlineBox>
         <div className="text-center">
           <h4 className="font-bold">+256</h4>
@@ -96,7 +96,7 @@ function StatsSection() {
 function WhatIsPigeonDAOSection() {
   return (
     <div className="relative w-full  py-20 px-16">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
+      <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between md:flex-row">
         <div className="flex flex-col gap-8">
           <h2 className="capitalize">
             WHAT IS <span className="text-accent">PIGEON DAO</span>?
@@ -133,7 +133,7 @@ function NewToPigeonDAOSection() {
           <h3 className="capitalize">LEARN HOW WE'RE USING BLOCKCHAINS HERE</h3>
         </div>
         <div className="w-full max-w-7xl">
-          <div className="mx-auto mt-24 grid w-full grid-cols-2 items-center justify-between gap-4 xl:grid-cols-4">
+          <div className="mx-auto mt-24 grid w-full grid-cols-1 items-center justify-between gap-4 md:grid-cols-2 xl:grid-cols-4">
             <InfoBox
               title="SMART CONTRACTS"
               t1="Effortless scalability."
@@ -180,20 +180,22 @@ function CommunitySection() {
         <span className="text-accent">YOU</span> AND YOUR{" "}
         <span className="text-accent">COMMUNITY</span>
       </h2>
-      <Image
-        src={landingMap.src}
-        alt="loading map"
-        width={landingMap.width}
-        height={landingMap.height}
-        className="mb-36 max-w-4xl object-contain"
-      />
+      <div className="max-w-4xl px-4">
+        <Image
+          src={landingMap.src}
+          alt="loading map"
+          width={landingMap.width}
+          height={landingMap.height}
+          className="mb-36 w-fit object-contain"
+        />
+      </div>
     </div>
   );
 }
 
 function ResourcesSection() {
   return (
-    <div className="mb-72 flex flex-col items-center">
+    <div className="mb-72 flex flex-col items-center text-center">
       <h2>
         GUIDES, ARTICLES, RESOURCES BY{" "}
         <span className="text-accent">PIGEON</span>

@@ -18,7 +18,7 @@ export default function Button({
       styleType === "accentFill"
         ? "border-2 border-accent bg-accent text-black hover:bg-primary hover:text-accent"
         : styleType === "accentOutline"
-        ? "border-2 border-accent text-accent hover:bg-accent hover:text-white"
+        ? "border-2 border-accent text-accent hover:bg-accent hover:text-black"
         : styleType === "whiteFill"
         ? "border-2 border-white bg-white text-black hover:bg-primary hover:text-white"
         : "border-2 border-white text-white hover:bg-white hover:text-primary"

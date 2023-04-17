@@ -5,11 +5,11 @@ import { useAccount, useContractRead } from "wagmi";
 import StepProcess, { CourierSteps } from "~/components/stepProcess";
 
 import NoSSR from "react-no-ssr";
-import CAgreement from "../../components/courier/cAgreement";
-import CComplete from "../../components/courier/cComplete";
-import CDelivery from "../../components/courier/cDelivery";
-import CFindListing from "../../components/courier/cFindListing";
-import CWaitingParticipantAgreeDelivery from "../../components/courier/cWaitingParticipantAgreeDelivery";
+import CAgreement from "~/components/courier/cAgreement";
+import CComplete from "~/components/courier/cComplete";
+import CDelivery from "~/components/courier/cDelivery";
+import CFindListing from "~/components/courier/cFindListing";
+import CWaitingParticipantAgreeDelivery from "~/components/courier/cWaitingParticipantAgreeDelivery";
 
 export default function Courier() {
   const account = useAccount();
