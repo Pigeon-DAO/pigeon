@@ -3,6 +3,7 @@ import { useAppStore } from "~/stores/useAppStore";
 
 import NoSSR from "react-no-ssr";
 import Header from "./header/header";
+import Footer from "./footer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,9 +16,10 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="relative w-full text-white">
       <Header />
-      <div className="flex min-h-screen w-full flex-col items-center bg-primary text-white">
+      <div className="flex min-h-screen w-full flex-col items-center bg-primaryDarker text-white">
         {children}
       </div>
+      <Footer />
       <NoSSR>
         {/* Loading */}
         {loading && (

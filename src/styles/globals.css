@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  background-color: #082340;
+  background-color: #051c34;
 }
 
 html {
@@ -14,7 +14,7 @@ html {
     @apply text-6xl font-extrabold text-shadow-lg;
   }
   h2 {
-    @apply text-5xl font-bold;
+    @apply text-4xl font-bold;
   }
   h3 {
     @apply text-2xl font-semibold;
