@@ -1,21 +1,7 @@
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
-// import { useTranslation } from "next-i18next";
-import ListboxUI from "../ui/listBox";
 
-const FooterLinks: {
-  title: string;
-  href: string;
-}[] = [
-  {
-    title: "Home",
-    href: "/",
-  },
-  { title: "Privacy Policy", href: "/privacy-policy" },
-  { title: "Terms of Use", href: "/terms-of-use" },
-  { title: "Content Policy", href: "/content-policy" },
-  { title: "Code of Ethics", href: "/code-of-ethics" },
-];
+import ListboxUI from "../ui/listBox";
 
 import { FaDiscord } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -24,43 +10,69 @@ import { FaInstagram } from "react-icons/fa";
 
 import { IconType } from "react-icons";
 
+const FooterLinks: {
+  title: string;
+  href: string;
+  newTab?: boolean;
+}[] = [
+  {
+    title: "Home",
+    href: "/",
+  },
+
+  { title: "Privacy Policy", href: "/privacy" },
+  { title: "Terms of Use", href: "/terms" },
+  { title: "Content Policy", href: "/content-policy" },
+  {
+    title: "Docs",
+    href: "https://docs.pigeondao.org/documentation/",
+    newTab: true,
+  },
+];
+
 const FooterIcons: {
   icon: IconType;
   href: string;
 }[] = [
-  { icon: FaDiscord, href: "/" },
-  { icon: FaTwitter, href: "/" },
-  { icon: FaLinkedin, href: "/" },
-  { icon: FaInstagram, href: "/" },
+  { icon: FaDiscord, href: "https://discord.gg/YJ8ngD3mtq" },
+  {
+    icon: FaTwitter,
+    href: "https://twitter.com/pigeondao",
+  },
+  { icon: FaLinkedin, href: "https://www.instagram.com/pigeondao/" },
+  { icon: FaInstagram, href: "https://www.linkedin.com/company/pigeondao" },
 ];
 
 export default function Footer() {
   const id = useId();
   const id2 = useId();
   return (
-    <div className="relative flex w-full flex-col items-center justify-between gap-8 bg-black/40 py-6 px-8">
-      <div className="lg:absolute lg:left-4 lg:top-2">
-        <LanguageSelector />
+    <div className="absolute bottom-0 w-full bg-primaryDarker py-6 px-8">
+      <div className="absolute top-0 right-0 bottom-0 left-0 bg-black/30"></div>
+      <div className="relative flex w-full flex-col items-center justify-between gap-8">
+        <div className="lg:absolute lg:left-0 lg:top-0">
+          <LanguageSelector />
+        </div>
+        <ul className="flex flex-col items-center gap-8 md:flex-row md:flex-wrap">
+          {FooterLinks.map((link, i) => (
+            <li key={`${link.title}-${i}`}>
+              <Link href={link.href} target={link.newTab ? "_blank" : "_self"}>
+                {link.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ul className="flex flex-wrap gap-6">
+          {FooterIcons.map((link, i) => (
+            <li key={`${"footer-icon"}-${i}`}>
+              <a href={link.href} target="_blank" rel="noreferrer noopener">
+                <link.icon size={24} />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p>&copy; {new Date().getFullYear()} Pigeon DAO LLC</p>
       </div>
-
-      <ul className="flex flex-col items-center gap-8 md:flex-row md:flex-wrap">
-        {FooterLinks.map((link, i) => (
-          <li key={`${link.title}-${i}`}>
-            <Link href={link.href}>{link.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <ul className="flex flex-wrap gap-6">
-        {FooterIcons.map((link, i) => (
-          <li key={`${"footer-icon"}-${i}`}>
-            <Link href={link.href}>
-              <link.icon size={24} />
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <p>&copy; {new Date().getFullYear()} Pigeon DAO LLC</p>
     </div>
   );
 }
@@ -83,15 +95,15 @@ function LanguageSelector() {
   useEffect(() => {
     if (localStorage.getItem("i18nextLng")) {
       changeLanguage(localStorage.getItem("i18nextLng") as string);
-      console.log(localStorage.getItem("i18nextLng"));
+      // console.log(localStorage.getItem("i18nextLng"));
       setDefaultLanguage(localStorage.getItem("i18nextLng") as string);
     }
   }, []);
-  console.log(
-    LanguageSelections[
-      LanguageSelections.findIndex((s) => s.value === defaultLanguage)
-    ]!
-  );
+  // console.log(
+  //   LanguageSelections[
+  //     LanguageSelections.findIndex((s) => s.value === defaultLanguage)
+  //   ]!
+  // );
   return (
     <div className="w-36">
       <ListboxUI

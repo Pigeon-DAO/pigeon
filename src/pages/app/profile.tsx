@@ -1,30 +1,23 @@
 import Alert from "~/components/ui/alert";
 import { api } from "~/utils/api";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import NoSSR from "react-no-ssr";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId, useNetwork } from "wagmi";
 import ConnectWalletButton from "~/web3/connectWalletButton";
 import Button from "~/components/ui/button";
 import { GetServerSideProps } from "next";
-import { env } from "~/env/server.mjs";
+
+import ensureBetaAccess from "~/tools/ensureBetaAccess";
+import { capitalizeFirstLetter } from "~/tools/text";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
-
-  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
-    return {
-      redirect: {
-        destination: "/whitelisted",
-        permanent: true,
-      },
-    };
-  }
-
-  return { props: {} };
+  return ensureBetaAccess(ctx);
 };
 
 export default function Profile() {
   const account = useAccount();
+  const network = useNetwork();
+
   const session = useSession();
   const user = api.user.getUser.useQuery(undefined, {
     enabled: session.status === "authenticated",
@@ -100,7 +93,8 @@ export default function Profile() {
 
           <div className="flex w-fit flex-col gap-4">
             <h3>My web3 account</h3>
-            <h4>Status: {account.status}</h4>
+            <h4>Status: {capitalizeFirstLetter(account.status)}</h4>
+            <h4>Chain: {network.chain?.name ?? "Disconnected"}</h4>
             {!account.address ? (
               <ConnectWalletButton />
             ) : (

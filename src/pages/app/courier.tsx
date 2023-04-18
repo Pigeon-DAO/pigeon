@@ -11,22 +11,11 @@ import CDelivery from "~/components/courier/cDelivery";
 import CFindListing from "~/components/courier/cFindListing";
 import CWaitingParticipantAgreeDelivery from "~/components/courier/cWaitingParticipantAgreeDelivery";
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import { env } from "~/env/server.mjs";
+
+import ensureBetaAccess from "~/tools/ensureBetaAccess";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
-
-  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
-    return {
-      redirect: {
-        destination: "/whitelisted",
-        permanent: true,
-      },
-    };
-  }
-
-  return { props: {} };
+  return ensureBetaAccess(ctx);
 };
 
 export default function Courier() {

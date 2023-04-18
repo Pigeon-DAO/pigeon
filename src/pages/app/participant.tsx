@@ -10,22 +10,11 @@ import PWaitForDelivery from "~/components/participant/pWaitForDelivery";
 import PAgreeDeliveryFinished from "~/components/participant/pAgreeDeliveryFinished";
 import PComplete from "~/components/participant/pComplete";
 import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
-import { env } from "~/env/server.mjs";
+
+import ensureBetaAccess from "~/tools/ensureBetaAccess";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
-
-  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
-    return {
-      redirect: {
-        destination: "/whitelisted",
-        permanent: true,
-      },
-    };
-  }
-
-  return { props: {} };
+  return ensureBetaAccess(ctx);
 };
 
 export default function Participant() {

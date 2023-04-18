@@ -11,7 +11,7 @@ html {
 }
 @layer components {
   h1 {
-    @apply text-6xl font-extrabold text-shadow-lg;
+    @apply text-5xl font-extrabold text-shadow-lg md:text-6xl;
   }
   h2 {
     @apply text-4xl font-bold;

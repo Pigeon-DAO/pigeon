@@ -7,23 +7,12 @@ import Link from "next/link";
 import NoSSR from "react-no-ssr";
 import Button from "~/components/ui/button";
 import { GetServerSideProps } from "next";
-import { env } from "~/env/server.mjs";
+
+import ensureBetaAccess from "~/tools/ensureBetaAccess";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx);
-
-  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
-    return {
-      redirect: {
-        destination: "/whitelisted",
-        permanent: true,
-      },
-    };
-  }
-
-  return { props: {} };
+  return ensureBetaAccess(ctx);
 };
-
 export default function Home() {
   const session = useSession();
   const account = useAccount();
@@ -59,10 +48,7 @@ export default function Home() {
                   finish it.
                 </h3>
 
-                <Button
-                  type="nextLink"
-                  href="/profile"
-                  styleType="accentOutline">
+                <Button type="link" href="/profile" styleType="accentOutline">
                   my profile
                 </Button>
               </div>
@@ -81,7 +67,7 @@ export default function Home() {
                       </p>
 
                       <Button
-                        type="nextLink"
+                        type="link"
                         href="/app/participant"
                         styleType="accentOutline">
                         Participate
@@ -92,7 +78,7 @@ export default function Home() {
                         delivering to participants' needs.
                       </p>
                       <Button
-                        type="nextLink"
+                        type="link"
                         href="/app/courier"
                         styleType="accentOutline">
                         Be a courier

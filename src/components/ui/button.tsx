@@ -9,13 +9,13 @@ export default function Button({
   onClick,
 }: {
   children: ReactNode;
-  type?: "button" | "nextLink" | "a";
+  type?: "button" | "link";
   styleType: "accentFill" | "accentOutline" | "whiteFill" | "whiteOutline";
   href?: string;
   onClick?: () => void;
 }) {
   function getClassName() {
-    return `rounded-md px-4 py-2 font-Nunito font-semibold transition-all duration-500 uppercase ${
+    return `rounded-md px-4 my-4 py-2 font-Nunito font-semibold transition-all duration-500 uppercase ${
       styleType === "accentFill"
         ? "border-2 border-accent bg-accent text-black hover:bg-primary hover:text-accent"
         : styleType === "accentOutline"
@@ -29,13 +29,9 @@ export default function Button({
     <button className={getClassName()} onClick={onClick}>
       {children}
     </button>
-  ) : type === "nextLink" ? (
-    <Link className={getClassName()} href={href}>
+  ) : (
+    <Link className={getClassName()} href={href} onClick={onClick}>
       {children}
     </Link>
-  ) : (
-    <a className={getClassName()} href={href}>
-      {children}
-    </a>
   );
 }

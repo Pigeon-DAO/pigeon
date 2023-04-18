@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { IoIosArrowUp, IoIosArrowDown, IoIosCheckmark } from "react-icons/io";
 
-interface Selection {
+export interface ListboxSelection {
   name: string;
   value: string;
 }
@@ -12,8 +12,8 @@ export default function ListboxUI({
   defaultSel,
   onSelectValue,
 }: {
-  selections: Selection[];
-  defaultSel: Selection;
+  selections: ListboxSelection[];
+  defaultSel: ListboxSelection;
   onSelectValue: (value: string) => void;
 }) {
   const [selected, setSelected] = useState<number>(
