@@ -32,12 +32,9 @@ export default function Header() {
           <HeaderLink text={"Products"} link="/products" />
           <HeaderLink text={"Developers"} link="/developers" />
           <HeaderLink text={"Integration"} link="/integration" />
-          <Button
-            text="My Account"
-            type="nextLink"
-            href="/profile"
-            styleType="accentOutline"
-          />
+          <Button type="nextLink" href="/profile" styleType="accentOutline">
+            my account
+          </Button>
         </ul>
         <div className="md:hidden">
           <RxHamburgerMenu className="h-8 w-8 text-white" />

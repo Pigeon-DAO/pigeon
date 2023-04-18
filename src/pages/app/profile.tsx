@@ -87,20 +87,14 @@ export default function Profile() {
                 )}
                 <h4 className="font-bold">{user.data?.name}</h4>
                 <h4>{user.data?.email}</h4>
-                <Button
-                  styleType="accentOutline"
-                  text="Sign out"
-                  type="button"
-                  onClick={() => signOut()}
-                />
+                <Button styleType="accentOutline" onClick={() => signOut()}>
+                  Sign out
+                </Button>
               </>
             ) : (
-              <Button
-                styleType="accentOutline"
-                text="Sign In"
-                type="button"
-                onClick={() => signIn()}
-              />
+              <Button styleType="accentOutline" onClick={() => signIn()}>
+                Sign In
+              </Button>
             )}
           </div>
 
@@ -139,12 +133,11 @@ export default function Profile() {
 
                 <Button
                   styleType="accentOutline"
-                  text="Link Current Wallet"
-                  type="button"
                   onClick={() =>
                     linkAddress.mutate({ address: user.data?.address! })
-                  }
-                />
+                  }>
+                  Link Current Wallet
+                </Button>
               </div>
             ) : !!account.address && !!user.data ? (
               <div>
@@ -155,13 +148,13 @@ export default function Profile() {
                     anywhere. It is used to identify you on this platform. It
                     may be changed later.
                   </span>
-                  <button
-                    className="btn-primary btn"
+                  <Button
+                    styleType="accentOutline"
                     onClick={() =>
                       linkAddress.mutate({ address: account.address as string })
                     }>
                     Link Wallet
-                  </button>
+                  </Button>
                 </div>
                 <span></span>
               </div>

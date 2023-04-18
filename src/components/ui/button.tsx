@@ -1,20 +1,21 @@
 import Link from "next/link";
+import { ReactNode } from "react";
 
 export default function Button({
-  text,
-  type,
+  children,
+  type = "button",
   styleType,
   href = "/",
   onClick,
 }: {
-  text: string;
-  type: "button" | "nextLink" | "a";
+  children: ReactNode;
+  type?: "button" | "nextLink" | "a";
   styleType: "accentFill" | "accentOutline" | "whiteFill" | "whiteOutline";
   href?: string;
   onClick?: () => void;
 }) {
   function getClassName() {
-    return `rounded-md px-4 py-2 font-Nunito font-semibold transition-all duration-500 ${
+    return `rounded-md px-4 py-2 font-Nunito font-semibold transition-all duration-500 uppercase ${
       styleType === "accentFill"
         ? "border-2 border-accent bg-accent text-black hover:bg-primary hover:text-accent"
         : styleType === "accentOutline"
@@ -26,15 +27,15 @@ export default function Button({
   }
   return type === "button" ? (
     <button className={getClassName()} onClick={onClick}>
-      {text.toUpperCase()}
+      {children}
     </button>
   ) : type === "nextLink" ? (
     <Link className={getClassName()} href={href}>
-      {text.toUpperCase()}
+      {children}
     </Link>
   ) : (
     <a className={getClassName()} href={href}>
-      {text.toUpperCase()}
+      {children}
     </a>
   );
 }

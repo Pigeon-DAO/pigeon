@@ -51,18 +51,12 @@ function HeroSection() {
         </p>
         <div className="mt-12">
           <div className="flex w-full gap-3">
-            <Button
-              text="what's next"
-              styleType="accentFill"
-              type="a"
-              href="/"
-            />
-            <Button
-              text="join beta"
-              styleType="whiteOutline"
-              type="nextLink"
-              href="/app"
-            />
+            <Button styleType="accentFill" type="nextLink" href="/">
+              what's next
+            </Button>
+            <Button styleType="whiteOutline" type="nextLink" href="/app">
+              join beta
+            </Button>
           </div>
         </div>
       </div>

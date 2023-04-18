@@ -60,10 +60,11 @@ export default function Home() {
                 </h3>
 
                 <Button
-                  text="My Profile"
                   type="nextLink"
                   href="/profile"
-                  styleType="accentOutline"></Button>
+                  styleType="accentOutline">
+                  my profile
+                </Button>
               </div>
             )}
 
@@ -80,20 +81,22 @@ export default function Home() {
                       </p>
 
                       <Button
-                        text="Participate"
                         type="nextLink"
                         href="/app/participant"
-                        styleType="accentOutline"></Button>
+                        styleType="accentOutline">
+                        Participate
+                      </Button>
 
                       <p className="py-4 text-xl">
                         By being the courier, you will be responsible for
                         delivering to participants' needs.
                       </p>
                       <Button
-                        text="Be a courier"
                         type="nextLink"
                         href="/app/courier"
-                        styleType="accentOutline"></Button>
+                        styleType="accentOutline">
+                        Be a courier
+                      </Button>
                     </div>
                   </>
                 )}

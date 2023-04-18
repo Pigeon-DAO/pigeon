@@ -34,11 +34,9 @@ export default function Home() {
             released publicly soon!
           </h3>
 
-          <Button
-            text="Return Home"
-            type="nextLink"
-            href="/"
-            styleType="accentOutline"></Button>
+          <Button type="nextLink" href="/" styleType="accentOutline">
+            return home
+          </Button>
         </div>
       </main>
     </>

@@ -5,12 +5,9 @@ const ConnectWalletButton = () => {
   const { openConnectModal } = useConnectModal();
   return (
     <div className="mx-auto">
-      <Button
-        onClick={openConnectModal}
-        text="Connect Wallet"
-        styleType="accentOutline"
-        type="button"
-      />
+      <Button onClick={openConnectModal} styleType="accentOutline">
+        Connect Wallet
+      </Button>
     </div>
   );
 };
