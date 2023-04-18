@@ -1,5 +1,5 @@
 import { abi, contractAddress } from "~/contracts/Pigeon";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { useAccount, useContractRead } from "wagmi";
 import StepProcess, { CourierSteps } from "~/components/stepProcess";
@@ -10,6 +10,24 @@ import CComplete from "~/components/courier/cComplete";
 import CDelivery from "~/components/courier/cDelivery";
 import CFindListing from "~/components/courier/cFindListing";
 import CWaitingParticipantAgreeDelivery from "~/components/courier/cWaitingParticipantAgreeDelivery";
+import { GetServerSideProps } from "next";
+import { getSession } from "next-auth/react";
+import { env } from "~/env/server.mjs";
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+
+  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
+    return {
+      redirect: {
+        destination: "/whitelisted",
+        permanent: true,
+      },
+    };
+  }
+
+  return { props: {} };
+};
 
 export default function Courier() {
   const account = useAccount();
@@ -18,17 +36,30 @@ export default function Courier() {
     ethers.constants.AddressZero
   );
   console.log("adr ", address);
-  const agreement = useContractRead({
-    address: contractAddress,
-    abi: abi,
-    functionName: "getAgreement",
+  // const agreement = useContractRead({
+  //   address: contractAddress,
+  //   abi: abi,
+  //   functionName: "getAgreement",
 
-    args: [(address as `0x${string}`) || ethers.constants.AddressZero],
-  });
+  //   args: [(address as `0x${string}`) || ethers.constants.AddressZero],
+  // });
+
+  const agreement = {
+    data: {
+      pickup: "Pickup Address",
+      dropoff: "Droppoff Address",
+      cost: BigNumber.from(ethers.utils.parseEther("0.25")),
+      participant: account.address,
+      courier: "0x000000",
+      state: 1,
+    },
+  };
 
   const agreementProbablyExists = (agreement.data?.pickup.length || 0) > 0;
 
   function UpdateStates() {
+    setStep(CourierSteps.Complete);
+    return;
     if (typeof window === "undefined") return;
     const validAdrInLocalStorage = ethers.utils.isAddress(
       localStorage.getItem("selectedPackageAddress") || ""
@@ -74,13 +105,13 @@ export default function Courier() {
   }, [agreement.data?.state]);
 
   const onSolidityEvent = () => {
-    agreement.refetch();
+    // agreement.refetch();
     console.log("Agreement State", agreement.data?.state);
     UpdateStates();
   };
 
   return (
-    <div>
+    <div className="pt-36">
       <NoSSR>
         <StepProcess type="courier" step={step} />
       </NoSSR>

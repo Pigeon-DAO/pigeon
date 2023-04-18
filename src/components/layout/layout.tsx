@@ -1,9 +1,11 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useAppStore } from "~/stores/useAppStore";
 
 import NoSSR from "react-no-ssr";
 import Header from "./header/header";
 import Footer from "./footer";
+import { api } from "~/utils/api";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,6 +14,15 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const loading = useAppStore((state) => state.loading);
   const loadingMessage = useAppStore((state) => state.loadingMessage);
+
+  const router = useRouter();
+  const user = api.user.getUser.useQuery();
+
+  // useEffect(() => {
+  //   if (router.pathname.includes("/app") && !user.data?.hasBetaAccess) {
+  //     router.push("/whitelisted");
+  //   }
+  // }, [router.pathname]);
 
   return (
     <div className="relative w-full text-white">

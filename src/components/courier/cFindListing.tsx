@@ -99,8 +99,11 @@ export default function CFindListing({
               />
             ) : (
               <>
-                <label htmlFor="createAgreementPickup">Pickup</label>
                 <span className="text-red-500">{errors[0] ?? errors[0]}</span>
+                <label htmlFor="createAgreementPickup">
+                  Participant address
+                </label>
+
                 <input
                   type="text"
                   id="createAgreementPickup"

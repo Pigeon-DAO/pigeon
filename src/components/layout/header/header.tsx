@@ -8,6 +8,8 @@ import pigeonlogo from "~/assets/svg/logo.svg";
 import HeaderLink from "./headerLink";
 import Button from "~/components/ui/button";
 
+import { RxHamburgerMenu } from "react-icons/rx";
+
 export default function Header() {
   const account = useAccount();
   const session = useSession();
@@ -15,7 +17,7 @@ export default function Header() {
   const user = session.data?.user;
 
   return (
-    <div className="absolute right-0 left-0 top-0 z-20 flex h-20 w-full items-center justify-between bg-black/40 px-20 py-12 backdrop-blur-sm">
+    <div className="absolute right-0 left-0 top-0 z-20 flex h-20 w-full items-center justify-between bg-black/40 py-12 px-8 backdrop-blur-sm md:px-20">
       <Link href="/">
         <div className="flex items-center gap-5">
           <img src={pigeonlogo.src} className="h-14 w-14"></img>
@@ -25,8 +27,27 @@ export default function Header() {
         </div>
       </Link>
 
-      <div className="flex items-center gap-2">
-        {/* {session.status === "authenticated" && (
+      <div className="items-center gap-2">
+        <ul className="hidden items-center gap-10 md:flex">
+          <HeaderLink text={"Products"} link="/products" />
+          <HeaderLink text={"Developers"} link="/developers" />
+          <HeaderLink text={"Integration"} link="/integration" />
+          <Button
+            text="My Account"
+            type="nextLink"
+            href="/profile"
+            styleType="accentOutline"
+          />
+        </ul>
+        <div className="md:hidden">
+          <RxHamburgerMenu className="h-8 w-8 text-white" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* {session.status === "authenticated" && (
           <div className="flex gap-2">
             <div className="dropdown-bottom dropdown-end dropdown">
               <label tabIndex={0} className="btn m-1 flex gap-4">
@@ -47,24 +68,10 @@ export default function Header() {
               </ul>
             </div>
           </div>
-        )}
-        {session.status === "unauthenticated" && (
+        )} */
+
+/* {session.status === "unauthenticated" && (
           <button className="btn" onClick={() => signIn()}>
             Sign in
           </button>
-        )} */}
-        <ul className="flex items-center gap-10">
-          <HeaderLink text={"Products"} link="/products" />
-          <HeaderLink text={"Developers"} link="/developers" />
-          <HeaderLink text={"Integration"} link="/integration" />
-          <Button
-            text="Connect Wallet"
-            type="button"
-            styleType="accentOutline"
-            onClick={() => {}}
-          />
-        </ul>
-      </div>
-    </div>
-  );
-}
+        )} */

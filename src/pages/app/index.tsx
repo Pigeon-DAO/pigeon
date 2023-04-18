@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { useAccount } from "wagmi";
 
@@ -6,6 +6,23 @@ import Head from "next/head";
 import Link from "next/link";
 import NoSSR from "react-no-ssr";
 import Button from "~/components/ui/button";
+import { GetServerSideProps } from "next";
+import { env } from "~/env/server.mjs";
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+
+  if (!session?.user?.hasBetaAccess && env.NODE_ENV !== "development") {
+    return {
+      redirect: {
+        destination: "/whitelisted",
+        permanent: true,
+      },
+    };
+  }
+
+  return { props: {} };
+};
 
 export default function Home() {
   const session = useSession();
@@ -75,7 +92,7 @@ export default function Home() {
                       <Button
                         text="Be a courier"
                         type="nextLink"
-                        href="/aap/courier"
+                        href="/app/courier"
                         styleType="accentOutline"></Button>
                     </div>
                   </>
