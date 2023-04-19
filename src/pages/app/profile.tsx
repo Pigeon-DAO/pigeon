@@ -128,7 +128,7 @@ export default function Profile() {
                 <Button
                   styleType="accentOutline"
                   onClick={() =>
-                    linkAddress.mutate({ address: user.data?.address! })
+                    linkAddress.mutate({ address: user.data!.address! })
                   }>
                   Link Current Wallet
                 </Button>

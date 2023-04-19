@@ -11,18 +11,22 @@ import Button from "~/components/ui/button";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useEffect, useId, useState } from "react";
 
+import explore from "~/assets/svg/icons/explore.svg";
+import drive from "~/assets/svg/icons/drive.svg";
+import packageIcon from "~/assets/svg/icons/package.svg";
+
 const HeaderLinks: {
   text: string;
   link: string;
-  list?: { name: string; link: string }[];
+  list?: { name: string; link: string; icon: any }[];
 }[] = [
   {
     text: "products",
     link: "/products",
     list: [
-      { name: "Explore", link: "/app" },
-      { name: "Send Package", link: "/app/participant" },
-      { name: "Drive & Earn", link: "/app/courier" },
+      { name: "Explore", link: "/app", icon: explore },
+      { name: "Send Package", link: "/app/participant", icon: packageIcon },
+      { name: "Drive & Earn", link: "/app/courier", icon: drive },
     ],
   },
   {
@@ -38,12 +42,11 @@ const HeaderLinks: {
 export default function Header() {
   const account = useAccount();
   const session = useSession();
-  const pathname = useRouter().pathname;
+  // const pathname = useRouter().pathname;
+  // const [headerText, setHeaderText] = useState("Home");
   const user = session.data?.user;
   const id = useId();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const [headerText, setHeaderText] = useState("Home");
 
   useEffect(() => {
     if (menuOpen) {
@@ -52,32 +55,6 @@ export default function Header() {
       document.body.style.overflowY = "unset";
     }
   }, [menuOpen]);
-
-  useEffect(() => {
-    setHeaderText(
-      pathname === "/"
-        ? "Home"
-        : pathname === "/profile"
-        ? "My Account"
-        : pathname === "/whats-next"
-        ? "What's Next"
-        : // Header
-        pathname === "/products"
-        ? "Products"
-        : pathname === "/developers"
-        ? "Developers"
-        : pathname === "/integration"
-        ? "Integration"
-        : // Footer
-        pathname === "/privacy"
-        ? "Privacy Policy"
-        : pathname === "/terms"
-        ? "Terms of Use"
-        : pathname === "/content-policy"
-        ? "Content Policy"
-        : ""
-    );
-  }, [pathname]);
 
   return (
     <>
@@ -89,12 +66,12 @@ export default function Header() {
               <p className="font-Nunito text-2xl font-bold text-white text-shadow-lg">
                 Pigeon DAO
               </p>
-              {headerText.length > 0 && (
+              {/* {headerText.length > 0 && (
                 <div className="flex items-center gap-1">
                   <p className="">|</p>
                   <p className="pl-[1px] pt-[3px]">{headerText}</p>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </Link>

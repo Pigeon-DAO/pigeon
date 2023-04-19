@@ -16,6 +16,17 @@ import InfoBox from "~/components/ui/infoBox";
 import landingMap from "~/assets/landingMap.png";
 import HeroLayout from "~/components/layout/heroLayout";
 
+import ellipse13 from "~/assets/halos/ellipse-13.png";
+import ellipse14 from "~/assets/halos/ellipse-14.png";
+
+import pigeonHalo from "~/assets/halos/pigeon-halo.png";
+
+import ellipse15 from "~/assets/halos/ellipse-15.png";
+import ellipse43 from "~/assets/halos/ellipse-43.png";
+
+import ellipse44 from "~/assets/halos/ellipse-44.png";
+import ellipse45 from "~/assets/halos/ellipse-45.png";
+
 export default function Home() {
   return (
     <div className="relative w-full">
@@ -89,6 +100,22 @@ function StatsSection() {
 function WhatIsPigeonDAOSection() {
   return (
     <div className="relative w-full py-20 px-8 md:px-16">
+      <div className="opacity-80">
+        <Image
+          src={ellipse14.src}
+          alt=""
+          className="absolute left-0 -top-32 object-contain"
+          width={ellipse14.width}
+          height={ellipse14.height}
+        />
+        <Image
+          src={ellipse13.src}
+          alt=""
+          className="absolute right-0 -top-32 object-contain"
+          width={ellipse13.width}
+          height={ellipse13.height}
+        />
+      </div>
       <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between md:flex-row">
         <div className="flex flex-col gap-8">
           <h2 className="capitalize">
@@ -102,13 +129,20 @@ function WhatIsPigeonDAOSection() {
             globally.
           </span>
         </div>
-        <div className="w-80">
+        <div className="relative w-80">
           <Image
             src={whatIsPigeon.src}
             alt="what is pigeon dao"
             width={whatIsPigeon.width}
             height={whatIsPigeon.height}
             className="mb-12 w-80 object-contain"
+          />
+          <Image
+            src={pigeonHalo.src}
+            alt=""
+            className="absolute right-0 top-0 left-0 -mb-96 object-contain"
+            width={pigeonHalo.width * 3}
+            height={pigeonHalo.height * 3}
           />
         </div>
       </div>
@@ -118,6 +152,22 @@ function WhatIsPigeonDAOSection() {
 function NewToPigeonDAOSection() {
   return (
     <div className="relative w-full  py-28 px-16 text-center">
+      <div className="opacity-80">
+        <Image
+          src={ellipse43.src}
+          alt=""
+          className="absolute left-0 top-8 object-contain"
+          width={ellipse43.width}
+          height={ellipse43.height}
+        />
+        <Image
+          src={ellipse15.src}
+          alt=""
+          className="absolute right-0 top-48 object-contain"
+          width={ellipse15.width}
+          height={ellipse15.height}
+        />
+      </div>
       <div className="max-w-8xl mx-auto flex w-full flex-col items-center justify-between">
         <div className="flex flex-col gap-4">
           <h2 className="capitalize">
@@ -167,7 +217,23 @@ function NewToPigeonDAOSection() {
 }
 function CommunitySection() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center">
+      <div className="opacity-80">
+        <Image
+          src={ellipse45.src}
+          alt=""
+          className="absolute left-0 -top-48 object-contain"
+          width={ellipse45.width}
+          height={ellipse45.height}
+        />
+        <Image
+          src={ellipse44.src}
+          alt=""
+          className="absolute right-0 -top-24 object-contain"
+          width={ellipse44.width}
+          height={ellipse44.height}
+        />
+      </div>
       <h2 className="mb-24 max-w-4xl text-center capitalize">
         A GLOBALLY COMPLIANT MARKETPLACE FOR{" "}
         <span className="text-accent">YOU</span> AND YOUR{" "}
