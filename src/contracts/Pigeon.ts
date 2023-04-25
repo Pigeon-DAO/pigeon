@@ -1,112 +1,30 @@
-export const contractAddress = "0x38C9303EBCD73B90da7781b6048fECf8026B1708";
+export const contractAddress = "0xE13f59eAB59609f7A8785a5Bfef4C23997109F5A";
 export const abi = [
   {
-    inputs: [],
-    name: "acceptCourier",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "agreeDeliveryFinished",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
       },
     ],
-    name: "AgreementCreated",
+    name: "DriverMarkedDeliveryFinished",
     type: "event",
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
       },
     ],
-    name: "CourierMarkedDeliveryFinished",
+    name: "DriverSelectedPackage",
     type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
-      },
-    ],
-    name: "CourierSelectedAgreement",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_pickup",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_dropoff",
-        type: "string",
-      },
-    ],
-    name: "createAgreement",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_participant",
-        type: "address",
-      },
-    ],
-    name: "markDeliveryFinished",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
   },
   {
     anonymous: false,
@@ -131,44 +49,334 @@ export const abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
       },
     ],
-    name: "ParticipantAcceptedCourier",
+    name: "PackageCreated",
     type: "event",
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
       },
     ],
-    name: "ParticipantAgreedDeliveryFinished",
+    name: "SenderAcceptedDriver",
     type: "event",
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "participant",
-        type: "address",
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
       },
     ],
-    name: "ParticipantRejectedCourier",
+    name: "SenderAgreedDeliveryFinished",
     type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+    ],
+    name: "SenderRejectedDriver",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "acceptDriver",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "addressToPackageId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "agreeDeliveryFinished",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [],
-    name: "rejectCourier",
+    name: "collectedFees",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_pickup",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_dropoff",
+        type: "string",
+      },
+    ],
+    name: "createPackage",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllPackageIds",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getMyPackages",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "getPackage",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "pickup",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "dropoff",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "cost",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "sender",
+            type: "address",
+          },
+          {
+            internalType: "address",
+            name: "driver",
+            type: "address",
+          },
+          {
+            internalType: "enum Pigeon.PackageState",
+            name: "state",
+            type: "uint8",
+          },
+        ],
+        internalType: "struct Pigeon.Package",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "markDeliveryFinished",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "packageIds",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "packages",
+    outputs: [
+      {
+        internalType: "string",
+        name: "pickup",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "dropoff",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "cost",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "driver",
+        type: "address",
+      },
+      {
+        internalType: "enum Pigeon.PackageState",
+        name: "state",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "rejectDriver",
     outputs: [
       {
         internalType: "bool",
@@ -189,12 +397,12 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_participant",
-        type: "address",
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
       },
     ],
-    name: "selectAgreement",
+    name: "selectPackage",
     outputs: [
       {
         internalType: "bool",
@@ -221,128 +429,14 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: "address",
+        internalType: "address payable",
         name: "_to",
         type: "address",
       },
     ],
     name: "withdrawFees",
-    outputs: [
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
+    outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "agreements",
-    outputs: [
-      {
-        internalType: "string",
-        name: "pickup",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "dropoff",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "cost",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "participant",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "courier",
-        type: "address",
-      },
-      {
-        internalType: "enum Courier.AgreementState",
-        name: "state",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_participant",
-        type: "address",
-      },
-    ],
-    name: "getAgreement",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "pickup",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "dropoff",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "cost",
-            type: "uint256",
-          },
-          {
-            internalType: "address",
-            name: "participant",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "courier",
-            type: "address",
-          },
-          {
-            internalType: "enum Courier.AgreementState",
-            name: "state",
-            type: "uint8",
-          },
-        ],
-        internalType: "struct Courier.Agreement",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
 ] as const;

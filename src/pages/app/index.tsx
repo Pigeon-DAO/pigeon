@@ -1,4 +1,4 @@
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { useAccount } from "wagmi";
 
@@ -6,13 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import NoSSR from "react-no-ssr";
 import Button from "~/components/ui/button";
-import { GetServerSideProps } from "next";
 
-import ensureBetaAccess from "~/tools/ensureBetaAccess";
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return ensureBetaAccess(ctx);
-};
 export default function Home() {
   const session = useSession();
   const account = useAccount();
@@ -44,7 +38,7 @@ export default function Home() {
               <div className="flex flex-col justify-start gap-2 rounded-xl bg-yellow-700/90 px-4 py-4">
                 <h2>Your account setup is not complete.</h2>
                 <h3>
-                  Please review <Link href="/profile">My Profile</Link> to
+                  Please review <Link href="/app/profile">My Profile</Link> to
                   finish it.
                 </h3>
 
@@ -59,29 +53,29 @@ export default function Home() {
                 account.isConnected &&
                 !displayLinkWarning && (
                   <>
-                    <h2>How may we assist you?</h2>
+                    <h2>How will you use Pigeon?</h2>
                     <div className="flex flex-col gap-2">
                       <p className="py-4 text-xl">
-                        By being a participant, you will create the agreement
-                        and work with the driver.
+                        By being a participant, you will create a package and
+                        work with the driver.
                       </p>
 
                       <Button
                         type="link"
-                        href="/app/participant"
+                        href="/app/send"
                         styleType="accentOutline">
-                        Participate
+                        Send Package
                       </Button>
 
                       <p className="py-4 text-xl">
-                        By being the courier, you will be responsible for
+                        By being the driver, you will be responsible for
                         delivering to participants' needs.
                       </p>
                       <Button
                         type="link"
-                        href="/app/courier"
+                        href="/app/drive"
                         styleType="accentOutline">
-                        Be a courier
+                        Drive and Earn
                       </Button>
                     </div>
                   </>

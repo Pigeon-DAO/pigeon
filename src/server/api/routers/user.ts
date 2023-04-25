@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
   getUser: protectedProcedure.query(({ ctx }) => {
@@ -22,7 +22,6 @@ export const userRouter = createTRPCRouter({
           address: input.address,
         },
       });
-      console.log(user);
       return user;
     }),
   linkAddress: protectedProcedure

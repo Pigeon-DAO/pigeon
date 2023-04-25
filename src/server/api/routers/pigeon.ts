@@ -18,20 +18,12 @@ export const pigeonRouter = createTRPCRouter({
     return ctx.prisma.user.findMany();
   }),
   // get user based on their address
-  getUserById: publicProcedure
-    .input(z.object({ id: z.string().nullish() }).nullish())
+  getUserByAddress: publicProcedure
+    .input(z.object({ address: z.string() }))
     .query(({ input }) => {
-      console.log(
-        "testest",
-        prisma?.account.findUnique({
-          where: {
-            id: input!.id!,
-          },
-        })
-      );
-      return prisma?.account.findUnique({
+      return prisma?.user.findFirst({
         where: {
-          id: input!.id!,
+          address: input!.address!,
         },
       });
     }),

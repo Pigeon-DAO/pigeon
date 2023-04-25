@@ -9,6 +9,13 @@
 html {
   background-color: black;
 }
+
+body {
+  max-width: 800vw;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 @layer components {
   h1 {
     @apply text-5xl font-extrabold text-shadow-lg md:text-6xl;

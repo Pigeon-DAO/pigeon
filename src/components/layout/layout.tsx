@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useAppStore } from "~/stores/useAppStore";
 
 import NoSSR from "react-no-ssr";
@@ -6,6 +6,17 @@ import Header from "./header/header";
 import Footer from "./footer";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
+import {
+  goerli,
+  useAccount,
+  useChainId,
+  useNetwork,
+  useSwitchNetwork,
+} from "wagmi";
+
+import { arbitrumGoerli } from "wagmi/chains";
+import Modal from "../ui/modal";
+import Button from "../ui/button";
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,8 +26,31 @@ const Layout = ({ children }: LayoutProps) => {
   const loading = useAppStore((state) => state.loading);
   const loadingMessage = useAppStore((state) => state.loadingMessage);
 
-  const router = useRouter();
-  const user = api.user.getUser.useQuery();
+  const [incorrectChain, setIncorrectChain] = useState(false);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const account = useAccount();
+  const chainId = useChainId();
+
+  const { switchNetwork, status } = useSwitchNetwork({
+    chainId: arbitrumGoerli.id,
+  });
+
+  useEffect(() => {
+    if (!chainId || !account.address) {
+      setIncorrectChain(false);
+      setModalOpen(false);
+      return;
+    }
+
+    if (chainId !== arbitrumGoerli.id) {
+      setIncorrectChain(true);
+      setModalOpen(true);
+    } else {
+      setIncorrectChain(false);
+      setModalOpen(false);
+    }
+  }, [chainId, modalOpen]);
 
   // useEffect(() => {
   //   if (router.pathname.includes("/app") && !user.data?.hasBetaAccess) {
@@ -25,7 +59,7 @@ const Layout = ({ children }: LayoutProps) => {
   // }, [router.pathname]);
 
   return (
-    <div className="relative w-full text-white">
+    <div className="relative w-full px-2 text-white">
       <Header />
       <div className="flex min-h-screen w-full flex-col items-center bg-primaryDarker pb-96 md:pb-64 lg:pb-36">
         {children}
@@ -43,6 +77,25 @@ const Layout = ({ children }: LayoutProps) => {
             </div>
           </div>
         )}
+        <Modal
+          forcedOpen={incorrectChain}
+          isOpen={modalOpen}
+          setIsOpen={setIncorrectChain}
+          title="Incorrect Chain">
+          <div>
+            {!!switchNetwork ? (
+              <Button onClick={() => switchNetwork!()}>Switch Network</Button>
+            ) : (
+              <p>
+                Network switch from here isn't available. Switch to{" "}
+                {arbitrumGoerli.name}.
+              </p>
+            )}
+            {!incorrectChain && (
+              <Button onClick={() => setModalOpen(false)}>Close</Button>
+            )}
+          </div>
+        </Modal>
       </NoSSR>
     </div>
   );

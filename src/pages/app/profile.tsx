@@ -2,17 +2,10 @@ import Alert from "~/components/ui/alert";
 import { api } from "~/utils/api";
 import { signIn, signOut, useSession } from "next-auth/react";
 import NoSSR from "react-no-ssr";
-import { useAccount, useChainId, useNetwork } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import ConnectWalletButton from "~/web3/connectWalletButton";
 import Button from "~/components/ui/button";
-import { GetServerSideProps } from "next";
-
-import ensureBetaAccess from "~/tools/ensureBetaAccess";
 import { capitalizeFirstLetter } from "~/tools/text";
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return ensureBetaAccess(ctx);
-};
 
 export default function Profile() {
   const account = useAccount();
@@ -28,7 +21,6 @@ export default function Profile() {
 
   const linkAddress = api.user.linkAddress.useMutation({
     onSuccess: () => {
-      console.log("sucessful");
       user.refetch();
     },
   });
@@ -49,7 +41,7 @@ export default function Profile() {
                     ? "bg-green-500"
                     : "bg-red-500"
                 }`}></span>
-              <span>Signed in with web2 account.</span>
+              <span>Signed in with Github account.</span>
             </div>
             <div className="flex items-center gap-2">
               <span
@@ -69,7 +61,7 @@ export default function Profile() {
 
           {/* Web 2 */}
           <div className="flex w-fit flex-col gap-4">
-            <h3>My web2 account</h3>
+            <h3>My Github account</h3>
             {session.status === "authenticated" ? (
               <>
                 {user.data?.image && (

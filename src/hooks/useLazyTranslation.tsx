@@ -12,3 +12,5 @@
 //   }, []);
 //   return [t, i18n];
 // }
+
+export default function useLazyTranslation() {}

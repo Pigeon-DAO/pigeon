@@ -7,18 +7,18 @@ export default function Alert({
 }) {
   return (
     <div
-      className={`alert mb-2 shadow-lg ${
+      className={`alert mb-2 flex gap-2 rounded-2xl px-2 py-4 text-xl shadow-lg ${
         type === "info"
-          ? "alert-info"
+          ? "bg-blue-600"
           : type === "success"
-          ? "alert-success"
+          ? "bg-green-500"
           : type === "warning"
-          ? "alert-warning"
+          ? "bg-yellow-600"
           : type === "error"
-          ? "alert-error"
+          ? "bg-red-500"
           : ""
       }`}>
-      <div>
+      <div className="flex items-center gap-2">
         {type === "info" ? (
           <InfoSVG />
         ) : type === "success" ? (
@@ -41,7 +41,7 @@ const NormalSVG = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    className="h-6 w-6 flex-shrink-0 stroke-info">
+    className="stroke-info h-6 w-6 flex-shrink-0">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

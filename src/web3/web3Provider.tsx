@@ -5,13 +5,11 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 import { ReactNode } from "react";
-import { Chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { goerli, arbitrumGoerli, mainnet } from "@wagmi/core/chains";
+import { configureChains, createClient, WagmiConfig } from "wagmi";
+import { arbitrumGoerli, mainnet } from "@wagmi/core/chains";
 
-import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { env } from "~/env/client.mjs";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 const { chains, provider, webSocketProvider } = configureChains(
   [

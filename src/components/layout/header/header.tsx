@@ -15,11 +15,13 @@ import explore from "~/assets/svg/icons/explore.svg";
 import drive from "~/assets/svg/icons/drive.svg";
 import packageIcon from "~/assets/svg/icons/package.svg";
 
-const HeaderLinks: {
+interface LinkInterface {
   text: string;
   link: string;
   list?: { name: string; link: string; icon: any }[];
-}[] = [
+}
+
+const HeaderLinks: LinkInterface[] = [
   {
     text: "products",
     link: "/products",
@@ -39,6 +41,21 @@ const HeaderLinks: {
   },
 ];
 
+const AppLinks: LinkInterface[] = [
+  {
+    text: "App Home",
+    link: "/app",
+  },
+  {
+    text: "Drive & Earn",
+    link: "/app/drive",
+  },
+  {
+    text: "Send Package",
+    link: "/app/send",
+  },
+];
+
 export default function Header() {
   const account = useAccount();
   const session = useSession();
@@ -47,6 +64,9 @@ export default function Header() {
   const user = session.data?.user;
   const id = useId();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const pathname = useRouter().pathname;
+  const isApp = pathname.includes("/app");
 
   useEffect(() => {
     if (menuOpen) {
@@ -59,7 +79,7 @@ export default function Header() {
   return (
     <>
       <div className="absolute right-0 left-0 top-0 z-10 flex h-20 w-full select-none items-center justify-between bg-black/40 py-12 px-8 backdrop-blur-sm md:px-16">
-        <Link href="/">
+        <Link href={isApp ? "/app" : "/"}>
           <div className="flex items-center gap-5">
             <img src={pigeonlogo.src} className="h-14 w-14"></img>
             <div className="flex flex-col">
@@ -78,16 +98,25 @@ export default function Header() {
 
         <div className="items-center gap-2">
           <ul className="hidden items-center gap-8 lg:flex">
-            {HeaderLinks.map((link, i) => (
-              <HeaderLink
-                text={link.text}
-                link={link.link}
-                list={link.list}
-                key={`${id}-${i}`}
-              />
-            ))}
+            {!isApp
+              ? HeaderLinks.map((link, i) => (
+                  <HeaderLink
+                    text={link.text}
+                    link={link.link}
+                    list={link.list}
+                    key={`${id}-${i}`}
+                  />
+                ))
+              : AppLinks.map((link, i) => (
+                  <HeaderLink
+                    text={link.text}
+                    link={link.link}
+                    list={link.list}
+                    key={`${id}-${i}`}
+                  />
+                ))}
             <Button type="link" href="/profile" styleType="accentOutline">
-              connect wallet
+              {isApp ? "My Profile" : "Connect Wallet"}
             </Button>
           </ul>
           <button
@@ -113,16 +142,28 @@ export default function Header() {
               isMobile={true}
               onClick={() => setMenuOpen(false)}
             />
-            {HeaderLinks.map((link, i) => (
-              <HeaderLink
-                text={link.text}
-                link={link.link}
-                list={link.list}
-                isMobile={true}
-                key={`${id}-${i}`}
-                onClick={() => setMenuOpen(false)}
-              />
-            ))}
+
+            {!isApp
+              ? HeaderLinks.map((link, i) => (
+                  <HeaderLink
+                    text={link.text}
+                    link={link.link}
+                    list={link.list}
+                    isMobile={true}
+                    key={`${id}-${i}`}
+                    onClick={() => setMenuOpen(false)}
+                  />
+                ))
+              : AppLinks.map((link, i) => (
+                  <HeaderLink
+                    text={link.text}
+                    link={link.link}
+                    list={link.list}
+                    isMobile={true}
+                    key={`${id}-${i}`}
+                    onClick={() => setMenuOpen(false)}
+                  />
+                ))}
             <HeaderLink
               text="Close menu"
               link=""
