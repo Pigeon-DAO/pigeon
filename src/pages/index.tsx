@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="relative w-full">
       <Head>
-        <title>Pigeon MVP</title>
+        <title>Pigeon DAO | The beta dApp</title>
         <meta
           name="description"
           content="Pigeon DAO is an entirely decentralized backend for transportation, designed with Solidity, smart contracts, Web3 protocols and much more!"
@@ -99,19 +99,19 @@ function StatsSection() {
 }
 function WhatIsPigeonDAOSection() {
   return (
-    <div className="relative w-full py-20 px-8 md:px-16">
+    <div className="relative w-full px-8 py-20 md:px-16">
       <div className="opacity-80">
         <Image
           src={ellipse14.src}
           alt=""
-          className="absolute left-0 -top-32 object-contain"
+          className="absolute -top-32 left-0 object-contain"
           width={ellipse14.width}
           height={ellipse14.height}
         />
         <Image
           src={ellipse13.src}
           alt=""
-          className="absolute right-0 -top-32 object-contain"
+          className="absolute -top-32 right-0 object-contain"
           width={ellipse13.width}
           height={ellipse13.height}
         />
@@ -140,7 +140,7 @@ function WhatIsPigeonDAOSection() {
           <Image
             src={pigeonHalo.src}
             alt=""
-            className="absolute right-0 top-0 left-0 -mb-96 object-contain"
+            className="absolute left-0 right-0 top-0 -mb-96 object-contain"
             width={pigeonHalo.width * 3}
             height={pigeonHalo.height * 3}
           />
@@ -151,7 +151,7 @@ function WhatIsPigeonDAOSection() {
 }
 function NewToPigeonDAOSection() {
   return (
-    <div className="relative w-full  py-28 px-16 text-center">
+    <div className="relative w-full  px-16 py-28 text-center">
       <div className="opacity-80">
         <Image
           src={ellipse43.src}
@@ -222,14 +222,14 @@ function CommunitySection() {
         <Image
           src={ellipse45.src}
           alt=""
-          className="absolute left-0 -top-48 object-contain"
+          className="absolute -top-48 left-0 object-contain"
           width={ellipse45.width}
           height={ellipse45.height}
         />
         <Image
           src={ellipse44.src}
           alt=""
-          className="absolute right-0 -top-24 object-contain"
+          className="absolute -top-24 right-0 object-contain"
           width={ellipse44.width}
           height={ellipse44.height}
         />
