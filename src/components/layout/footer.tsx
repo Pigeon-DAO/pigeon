@@ -39,16 +39,16 @@ const FooterIcons: {
     icon: FaTwitter,
     href: "https://twitter.com/pigeondao",
   },
-  { icon: FaLinkedin, href: "https://www.instagram.com/pigeondao/" },
-  { icon: FaInstagram, href: "https://www.linkedin.com/company/pigeondao" },
+  { icon: FaLinkedin, href: "https://www.linkedin.com/company/pigeondao" },
+  { icon: FaInstagram, href: "https://www.instagram.com/pigeondao/" },
 ];
 
 export default function Footer() {
   const id = useId();
   const id2 = useId();
   return (
-    <div className="absolute bottom-0 w-full bg-primaryDarker py-6 px-8">
-      <div className="absolute top-0 right-0 bottom-0 left-0 bg-black/30"></div>
+    <div className="absolute bottom-0 w-full bg-primaryDarker px-8 py-6">
+      <div className="absolute bottom-0 left-0 right-0 top-0 bg-black/30"></div>
       <div className="relative flex w-full flex-col items-center justify-between gap-8">
         <div className="lg:absolute lg:left-0 lg:top-0">
           <LanguageSelector />
