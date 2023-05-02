@@ -59,7 +59,7 @@ const Layout = ({ children }: LayoutProps) => {
   // }, [router.pathname]);
 
   return (
-    <div className="relative w-full px-2 text-white">
+    <div className="relative w-full text-white">
       <Header />
       <div className="flex min-h-screen w-full flex-col items-center bg-primaryDarker pb-96 md:pb-64 lg:pb-36">
         {children}

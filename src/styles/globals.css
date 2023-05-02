@@ -11,9 +11,7 @@ html {
 }
 
 body {
-  max-width: 800vw;
   width: 100%;
-  overflow-x: hidden;
 }
 
 @layer components {

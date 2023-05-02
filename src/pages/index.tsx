@@ -104,19 +104,19 @@ function WhatIsPigeonDAOSection() {
         <Image
           src={ellipse14.src}
           alt=""
-          className="absolute left-0 -top-32 object-contain"
+          className="pointer-events-none absolute left-0 -top-32 object-contain"
           width={ellipse14.width}
           height={ellipse14.height}
         />
         <Image
           src={ellipse13.src}
           alt=""
-          className="absolute right-0 -top-32 object-contain"
+          className="pointer-events-none absolute right-0 -top-32 object-contain"
           width={ellipse13.width}
           height={ellipse13.height}
         />
       </div>
-      <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between md:flex-row">
+      <div className="relative mx-auto flex w-full max-w-5xl flex-col items-center justify-between md:flex-row">
         <div className="flex flex-col gap-8">
           <h2 className="capitalize">
             WHAT IS <span className="text-accent">PIGEON DAO</span>?
@@ -140,7 +140,7 @@ function WhatIsPigeonDAOSection() {
           <Image
             src={pigeonHalo.src}
             alt=""
-            className="absolute right-0 top-0 left-0 -mb-96 object-contain"
+            className="pointer-events-none absolute right-0 top-0 left-0 -mb-96 object-contain"
             width={pigeonHalo.width * 3}
             height={pigeonHalo.height * 3}
           />
@@ -156,14 +156,14 @@ function NewToPigeonDAOSection() {
         <Image
           src={ellipse43.src}
           alt=""
-          className="absolute left-0 top-8 object-contain"
+          className="pointer-events-none absolute left-0 top-8 object-contain"
           width={ellipse43.width}
           height={ellipse43.height}
         />
         <Image
           src={ellipse15.src}
           alt=""
-          className="absolute right-0 top-48 object-contain"
+          className="pointer-events-none absolute right-0 top-48 object-contain"
           width={ellipse15.width}
           height={ellipse15.height}
         />
@@ -222,14 +222,14 @@ function CommunitySection() {
         <Image
           src={ellipse45.src}
           alt=""
-          className="absolute left-0 -top-48 object-contain"
+          className="pointer-events-none absolute left-0 -top-48 object-contain"
           width={ellipse45.width}
           height={ellipse45.height}
         />
         <Image
           src={ellipse44.src}
           alt=""
-          className="absolute right-0 -top-24 object-contain"
+          className="pointer-events-none absolute right-0 -top-24 object-contain"
           width={ellipse44.width}
           height={ellipse44.height}
         />
