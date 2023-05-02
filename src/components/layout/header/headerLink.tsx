@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 export default function HeaderLink({
@@ -21,7 +21,7 @@ export default function HeaderLink({
 
   return (
     <>
-      <li
+      <div
         className="relative font-Nunito text-gray-300 transition-all"
         onMouseEnter={() => setMenuShown(true)}
         onMouseLeave={() => setMenuShown(false)}
@@ -47,7 +47,9 @@ export default function HeaderLink({
             <div className="relative z-10 -ml-3 flex w-[200px] flex-col gap-4 py-2 px-3 text-end">
               {!!list &&
                 list.map((l, i) => (
-                  <li key={`${text}-${i}`} className="flex items-center gap-4">
+                  <li
+                    key={`${text}-${i}`}
+                    className="group flex items-center gap-4">
                     <Image
                       src={l.icon}
                       width={16}
@@ -56,7 +58,7 @@ export default function HeaderLink({
                     <Link
                       href={l.link}
                       onClick={onClick}
-                      className="font-Nunito text-xl text-gray-300 transition-all hover:text-accent">
+                      className="font-Nunito text-xl text-gray-300 transition-all group-hover:text-accent">
                       {l.name}
                     </Link>
                   </li>
@@ -65,14 +67,15 @@ export default function HeaderLink({
           </ul>
         )}
         {isList && !isMobile && (
-          <ul
+          <div
             className={`transition-all duration-500 ${
               menuShown ? "opacity-100" : "hidden opacity-0"
             }`}>
             <div className="absolute z-10 -ml-3 w-[200px]">
               <div className="mt-9 flex flex-col gap-5 rounded-b-lg bg-primaryDarker py-3 px-3">
                 {list.map((l, i) => (
-                  <li
+                  <Link
+                    href={l.link}
                     key={`${text}-${i}`}
                     className="group flex items-center gap-3">
                     <Image
@@ -82,19 +85,18 @@ export default function HeaderLink({
                       alt="icon"
                       className="group-hover:text-accent"></Image>
 
-                    <Link
-                      href={l.link}
+                    <div
                       onClick={onClick}
-                      className="font-Nunito text-xl text-gray-300 transition-all hover:text-accent">
+                      className="font-Nunito text-xl text-gray-300 transition-all group-hover:text-accent">
                       {l.name}
-                    </Link>
-                  </li>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </div>
-          </ul>
+          </div>
         )}
-      </li>
+      </div>
     </>
   );
 }

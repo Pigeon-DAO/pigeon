@@ -11,20 +11,20 @@ import Image from "next/image";
 
 export default function HeroLayout({ children }: { children: ReactNode }) {
   return (
-    <main className="relative w-full bg-primary px-4">
+    <main className="relative w-full bg-primary">
       {/* halos */}
-      <div className="opacity-80">
+      <div className="absolute top-0 right-10 left-0 bottom-0 opacity-80">
         <Image
           src={ellipse10.src}
           alt=""
-          className="absolute left-0 -top-5 w-80"
+          className="pointer-events-none absolute left-0 -top-5 w-80"
           width={ellipse10.width}
           height={ellipse10.height}
         />
         <Image
           src={ellipse9.src}
           alt=""
-          className="absolute -left-20 top-20"
+          className="pointer-events-none absolute -left-20 top-20"
           width={ellipse9.width / 1.4}
           height={ellipse9.height / 1.4}
         />
@@ -32,14 +32,14 @@ export default function HeroLayout({ children }: { children: ReactNode }) {
         <Image
           src={ellipse11.src}
           alt=""
-          className="absolute -right-10 top-10 h-full"
+          className="pointer-events-none absolute -right-10 top-10 h-full overflow-hidden"
           width={ellipse11.width / 1.4}
           height={ellipse11.height / 1.4}
         />
         <Image
           src={ellipse12.src}
           alt=""
-          className="absolute -right-10 top-10 h-full"
+          className="pointer-events-none absolute -right-10 top-10 h-full overflow-hidden"
           width={ellipse12.width / 1.4}
           height={ellipse12.height / 1.4}
         />

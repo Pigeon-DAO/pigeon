@@ -27,8 +27,8 @@ const HeaderLinks: LinkInterface[] = [
     link: "/products",
     list: [
       { name: "Explore", link: "/app", icon: explore },
-      { name: "Send Package", link: "/app/participant", icon: packageIcon },
-      { name: "Drive & Earn", link: "/app/courier", icon: drive },
+      { name: "Send Package", link: "/app/send", icon: packageIcon },
+      { name: "Drive & Earn", link: "/app/drive", icon: drive },
     ],
   },
   {
@@ -79,12 +79,12 @@ export default function Header() {
   return (
     <>
       <div className="absolute right-0 left-0 top-0 z-10 flex h-20 w-full select-none items-center justify-between bg-black/40 py-12 px-8 backdrop-blur-sm md:px-16">
-        <Link href={isApp ? "/app" : "/"}>
+        <Link href={isApp ? "/" : "/"}>
           <div className="flex items-center gap-5">
             <img src={pigeonlogo.src} className="h-14 w-14"></img>
             <div className="flex flex-col">
               <p className="font-Nunito text-2xl font-bold text-white text-shadow-lg">
-                Pigeon DAO
+                {isApp ? "Pigeon BETA" : "Pigeon DAO"}
               </p>
               {/* {headerText.length > 0 && (
                 <div className="flex items-center gap-1">
