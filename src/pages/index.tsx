@@ -16,6 +16,14 @@ import InfoBox from "~/components/ui/infoBox";
 import landingMap from "~/assets/landingMap.png";
 import HeroLayout from "~/components/layout/heroLayout";
 
+import parti from "~/assets/home/parti.png";
+import devs from "~/assets/home/devs.png";
+import com1 from "~/assets/home/com1.jpeg";
+import com2 from "~/assets/home/com2.jpeg";
+import com3 from "~/assets/home/com3.jpeg";
+import com4 from "~/assets/home/com4.jpeg";
+import com5 from "~/assets/home/com5.jpeg";
+
 import ellipse13 from "~/assets/halos/ellipse-13.png";
 import ellipse14 from "~/assets/halos/ellipse-14.png";
 
@@ -43,6 +51,7 @@ export default function Home() {
       <WhatIsPigeonDAOSection />
       <NewToPigeonDAOSection />
       <CommunitySection />
+      <JoinOurCommunitySection />
       <ResourcesSection />
     </div>
   );
@@ -75,7 +84,7 @@ function HeroSection() {
 }
 function StatsSection() {
   return (
-    <div className="relative flex flex-col items-center bg-primaryDarker px-8 py-28">
+    <div className="relative flex flex-col items-center  px-8 py-28">
       <OutlineBox>
         <div className="text-center">
           <h4 className="font-bold">+256</h4>
@@ -246,6 +255,72 @@ function CommunitySection() {
           width={landingMap.width}
           height={landingMap.height}
           className="mb-36 w-fit object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
+function JoinOurCommunitySection() {
+  return (
+    <div className="mb-72 flex flex-col items-center text-center">
+      <h2>
+        <span className="text-accent">Join</span> our{" "}
+        <span className="text-accent">community</span>
+      </h2>
+      <span className="mt-2">Conferences, events, hacker houses & more.</span>
+      <div className="my-12 flex flex-col gap-4 lg:flex-row">
+        <Image
+          src={com5}
+          alt=""
+          width={com5.width}
+          height={com5.height}
+          className="h-80 w-full rounded-2xl object-cover xl:w-72 xl:object-right"
+        />
+        <div className="grid shrink-0 grid-cols-3 gap-4 xl:w-[600px]">
+          <Image
+            src={com4}
+            alt=""
+            width={com4.width}
+            height={com4.height}
+            className="h-full w-full  rounded-2xl"
+          />
+          <Image
+            src={com3}
+            alt=""
+            width={com3.width}
+            height={com3.height}
+            className="row-span-2 h-full w-full rounded-2xl object-cover"
+          />
+          <Image
+            src={devs}
+            alt=""
+            width={devs.width}
+            height={devs.height}
+            className="h-full w-full rounded-2xl"
+          />
+
+          <Image
+            src={parti}
+            alt=""
+            width={parti.width}
+            height={parti.height}
+            className="h-full w-full rounded-2xl"
+          />
+          <Image
+            src={com2}
+            alt=""
+            width={com2.width}
+            height={com2.height}
+            className="h-full w-full rounded-2xl"
+          />
+        </div>
+        <Image
+          src={com1}
+          alt=""
+          width={com1.width}
+          height={com1.height}
+          className="h-80 w-full rounded-2xl object-cover xl:w-72 xl:object-left"
         />
       </div>
     </div>

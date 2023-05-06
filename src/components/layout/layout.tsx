@@ -18,6 +18,8 @@ import { arbitrumGoerli } from "wagmi/chains";
 import Modal from "../ui/modal";
 import Button from "../ui/button";
 
+import space from "~/assets/space.jpeg";
+
 interface LayoutProps {
   children: ReactNode;
 }
@@ -61,8 +63,14 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="relative w-full text-white">
       <Header />
-      <div className="flex min-h-screen w-full flex-col items-center bg-primaryDarker pb-96 md:pb-64 lg:pb-36">
-        {children}
+      <div
+        className=" h-full min-h-screen w-full  bg-cover bg-repeat-y object-cover "
+        style={{
+          backgroundImage: `url(${space.src})`,
+        }}>
+        <div className="flex h-full w-full flex-col items-center bg-primaryDarker/95 pb-96 md:pb-64 lg:pb-36">
+          {children}
+        </div>
       </div>
       <Footer />
       <NoSSR>
