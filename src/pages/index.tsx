@@ -104,22 +104,14 @@ function WhatIsPigeonDAOSection() {
         <Image
           src={ellipse14.src}
           alt=""
-<<<<<<< HEAD
-          className="absolute -top-32 left-0 object-contain"
-=======
           className="pointer-events-none absolute left-0 -top-32 object-contain"
->>>>>>> 7e0ac3c05649a3c18ee79ece99e5b4c29aa271fe
           width={ellipse14.width}
           height={ellipse14.height}
         />
         <Image
           src={ellipse13.src}
           alt=""
-<<<<<<< HEAD
-          className="absolute -top-32 right-0 object-contain"
-=======
           className="pointer-events-none absolute right-0 -top-32 object-contain"
->>>>>>> 7e0ac3c05649a3c18ee79ece99e5b4c29aa271fe
           width={ellipse13.width}
           height={ellipse13.height}
         />
@@ -148,11 +140,7 @@ function WhatIsPigeonDAOSection() {
           <Image
             src={pigeonHalo.src}
             alt=""
-<<<<<<< HEAD
-            className="absolute left-0 right-0 top-0 -mb-96 object-contain"
-=======
             className="pointer-events-none absolute right-0 top-0 left-0 -mb-96 object-contain"
->>>>>>> 7e0ac3c05649a3c18ee79ece99e5b4c29aa271fe
             width={pigeonHalo.width * 3}
             height={pigeonHalo.height * 3}
           />
@@ -234,22 +222,14 @@ function CommunitySection() {
         <Image
           src={ellipse45.src}
           alt=""
-<<<<<<< HEAD
-          className="absolute -top-48 left-0 object-contain"
-=======
           className="pointer-events-none absolute left-0 -top-48 object-contain"
->>>>>>> 7e0ac3c05649a3c18ee79ece99e5b4c29aa271fe
           width={ellipse45.width}
           height={ellipse45.height}
         />
         <Image
           src={ellipse44.src}
           alt=""
-<<<<<<< HEAD
-          className="absolute -top-24 right-0 object-contain"
-=======
           className="pointer-events-none absolute right-0 -top-24 object-contain"
->>>>>>> 7e0ac3c05649a3c18ee79ece99e5b4c29aa271fe
           width={ellipse44.width}
           height={ellipse44.height}
         />
