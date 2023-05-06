@@ -27,8 +27,8 @@ const HeaderLinks: LinkInterface[] = [
     link: "/products",
     list: [
       { name: "Explore", link: "/app", icon: explore },
-      { name: "Send Package", link: "/app/send", icon: packageIcon },
-      { name: "Drive & Earn", link: "/app/drive", icon: drive },
+      { name: "Send Package", link: "/send", icon: packageIcon },
+      { name: "Drive & Earn", link: "/drive", icon: drive },
     ],
   },
   {

@@ -10,14 +10,20 @@ import ellipse12 from "~/assets/halos/hero/ellipse-12.png";
 import Image from "next/image";
 import space from "~/assets/space.jpeg";
 
-export default function HeroLayout({ children }: { children: ReactNode }) {
+export default function HeroLayout({
+  children,
+  showLines = false,
+}: {
+  children: ReactNode;
+  showLines?: boolean;
+}) {
   return (
     <main
       className="relative w-full bg-cover"
       style={{
         backgroundImage: `url(${space.src})`,
       }}>
-      <div className="bg-primary/90">
+      <div className="bg-primary/90 px-4">
         {/* halos */}
         <div className="absolute top-0 right-10 left-0 bottom-0 opacity-80">
           <Image
@@ -51,14 +57,16 @@ export default function HeroLayout({ children }: { children: ReactNode }) {
           />
         </div>
 
-        <div className="absolute left-0"></div>
-        <div className="absolute right-0 top-0 w-full">
-          <img
-            src={dotsVector.src}
-            alt=""
-            className="h-[850px] object-right-top"
-          />
-        </div>
+        {showLines && (
+          <div className="absolute right-0 top-0 w-full">
+            <img
+              src={dotsVector.src}
+              alt=""
+              className="h-[850px] object-right-top"
+            />
+          </div>
+        )}
+
         <div className="relative flex h-[740px] min-h-screen w-full flex-col items-center justify-center text-center">
           {children}
         </div>

@@ -59,7 +59,7 @@ export default function Home() {
 
 function HeroSection() {
   return (
-    <HeroLayout>
+    <HeroLayout showLines={true}>
       <>
         <h1 className="py-4">
           PIGEON DAO, THE<br></br> COURIER DAPP
