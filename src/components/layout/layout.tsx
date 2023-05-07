@@ -64,11 +64,11 @@ const Layout = ({ children }: LayoutProps) => {
     <div className="relative w-full text-white">
       <Header />
       <div
-        className=" h-full min-h-screen w-full  bg-cover bg-repeat-y object-cover "
+        className="h-full min-h-screen w-full bg-cover bg-repeat-y object-cover "
         style={{
           backgroundImage: `url(${space.src})`,
         }}>
-        <div className="flex h-full w-full flex-col items-center bg-primaryDarker/95 pb-96 md:pb-64 lg:pb-36">
+        <div className="flex h-full w-full flex-col items-center bg-primaryDarker/80 pb-96 md:pb-64 lg:pb-36">
           {children}
         </div>
       </div>

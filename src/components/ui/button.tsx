@@ -3,15 +3,20 @@ import { ReactNode } from "react";
 
 export default function Button({
   children,
-  type = "button",
+  link = false,
   styleType = "accentOutline",
   href = "/",
   className = "",
   onClick,
 }: {
   children?: ReactNode;
-  type?: "button" | "link";
-  styleType?: "accentFill" | "accentOutline" | "whiteFill" | "whiteOutline";
+  link?: boolean;
+  styleType?:
+    | "accentFill"
+    | "accentOutline"
+    | "whiteFill"
+    | "whiteOutline"
+    | "blueSquare";
   href?: string;
   className?: string;
   onClick?: () => void;
@@ -24,10 +29,12 @@ export default function Button({
         ? "border-2 border-accent text-accent hover:bg-accent hover:text-black"
         : styleType === "whiteFill"
         ? "border-2 border-white bg-white text-black hover:bg-primary hover:text-white"
+        : styleType === "blueSquare"
+        ? "border-none bg-blue-600 text-white hover:bg-blue-600 hover:text-white rounded-none"
         : "border-2 border-white text-white hover:bg-white hover:text-primary"
     } ${className}`;
   }
-  return type === "button" ? (
+  return !link ? (
     <button className={getClassName()} onClick={onClick}>
       {children}
     </button>

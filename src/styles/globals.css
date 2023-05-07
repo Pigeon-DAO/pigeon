@@ -27,4 +27,7 @@ body {
   h4 {
     @apply text-xl;
   }
+  .input {
+    @apply rounded-xl bg-gradient-to-br from-gray-600 to-gray-800 p-4 text-white placeholder-white opacity-60 shadow-lg backdrop-blur-md;
+  }
 }

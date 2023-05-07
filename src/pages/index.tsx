@@ -70,10 +70,10 @@ function HeroSection() {
         </p>
         <div className="mt-12">
           <div className="flex w-full gap-3">
-            <Button styleType="accentFill" type="link" href="/whats-next">
+            <Button styleType="accentFill" link href="/whats-next">
               what's next
             </Button>
-            <Button styleType="whiteOutline" type="link" href="/app">
+            <Button styleType="whiteOutline" link href="/app">
               join beta
             </Button>
           </div>
