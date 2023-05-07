@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div className="relative w-full">
       <Head>
-        <title>Pigeon MVP</title>
+        <title>Pigeon DAO | The beta dApp</title>
         <meta
           name="description"
           content="Pigeon DAO is an entirely decentralized backend for transportation, designed with Solidity, smart contracts, Web3 protocols and much more!"
@@ -108,7 +108,7 @@ function StatsSection() {
 }
 function WhatIsPigeonDAOSection() {
   return (
-    <div className="relative w-full py-20 px-8 md:px-16">
+    <div className="relative w-full px-8 py-20 md:px-16">
       <div className="opacity-80">
         <Image
           src={ellipse14.src}
@@ -160,7 +160,7 @@ function WhatIsPigeonDAOSection() {
 }
 function NewToPigeonDAOSection() {
   return (
-    <div className="relative w-full  py-28 px-16 text-center">
+    <div className="relative w-full  px-16 py-28 text-center">
       <div className="opacity-80">
         <Image
           src={ellipse43.src}
