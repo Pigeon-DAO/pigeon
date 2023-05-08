@@ -13,7 +13,7 @@ export default function Send() {
   return (
     <>
       <HeroLayout>
-        <div className="flex h-full w-full max-w-5xl items-center justify-center md:justify-between md:px-4">
+        <div className="max-w-8xl mx-auto flex h-full w-full max-w-6xl items-center justify-center md:justify-between md:px-4">
           <div className="text-left">
             <h1>Send a Package</h1>
             <p className="my-8 max-w-md">
@@ -25,7 +25,7 @@ export default function Send() {
               .
             </p>
             <div className="my-12 flex gap-6">
-              <Button styleType="accentFill" link>
+              <Button styleType="accentFill" link href="/app/send">
                 Get Started
               </Button>
               <Button styleType="whiteOutline">Start Test</Button>

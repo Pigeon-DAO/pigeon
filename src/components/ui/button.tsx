@@ -22,7 +22,7 @@ export default function Button({
   onClick?: () => void;
 }) {
   function getClassName() {
-    return `inline-block rounded-md px-6 my-2 py-2 font-Nunito font-semibold transition-all duration-500 uppercase ${
+    return `inline-block rounded-md px-6 my-2 py-2 text-center font-Nunito font-semibold transition-all duration-500 uppercase ${
       styleType === "accentFill"
         ? "border-2 border-accent bg-accent text-black hover:bg-primary hover:text-accent"
         : styleType === "accentOutline"
