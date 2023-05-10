@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Button from "~/components/ui/button";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef, useState } from "react";
 import ellipse14 from "~/assets/halos/ellipse-43.png";
 import ellipse13 from "~/assets/halos/ellipse-13.png";
 import ellipse10 from "~/assets/halos/hero/ellipse-10.png";
@@ -7,7 +9,6 @@ import ellipse9 from "~/assets/halos/hero/ellipse-9.png";
 import ellipse11 from "~/assets/halos/hero/ellipse-11.png";
 import ellipse12 from "~/assets/halos/hero/ellipse-12.png";
 import group98 from "~/assets/svg/Group 98.svg";
-import { useState } from "react";
 import pigeonHalo from "~/assets/halos/pigeon-halo.png"
 import Rectangle103 from "~/assets/Rectangle-103.png"
 import Rectangle104 from "~/assets/Rectangle-104.png"
@@ -19,38 +20,8 @@ import spaceBackground from "~/assets/spaceBackground.png"
 // w-full sm:w-1/3 sm:items-center xl:mt-[-60px] text-center hidden md:block mt-20
 export function IntroSendPackage(){
   return(
-    <div className="w-full px-8 md:px-16 bg-transparent z-[-1] ">
-      <div className="absolute top-0 right-10 left-0 bottom-0 opacity-80">
-        <Image
-          src={ellipse10.src}
-          alt=""
-          className="pointer-events-none absolute left-0 -top-5 w-80"
-          width={ellipse10.width}
-          height={ellipse10.height}
-        />
-        <Image
-          src={ellipse9.src}
-          alt=""
-          className="pointer-events-none absolute -left-20 top-20"
-          width={ellipse9.width / 1.4}
-          height={ellipse9.height / 1.4}
-        />
+    <div className="px-8 md:px-16 bg-transparent z-[-1] flex flex-col items-start w-full">
 
-        <Image
-          src={ellipse11.src}
-          alt=""
-          className="pointer-events-none absolute -right-10 top-10 h-full overflow-hidden"
-          width={ellipse11.width / 1.4}
-          height={ellipse11.height / 1.4}
-        />
-        <Image
-          src={ellipse12.src}
-          alt=""
-          className="pointer-events-none absolute -right-10 top-10 h-full overflow-hidden"
-          width={ellipse12.width / 1.4}
-          height={ellipse12.height / 1.4}
-        />
-      </div>
       
       <div className="pt-32 font-Poppins w-full">
         {/* <div className=" text-left flex items-center h-full text-md z-100 block">
@@ -189,6 +160,7 @@ const estilazos:putete = {
 }
 
 function TalkToOurExperts(){
+  const [captcha, setCaptcha] = useState(false);
   const [info, setInfo] = useState({
     fullName: '',
     email: '',
@@ -201,25 +173,32 @@ function TalkToOurExperts(){
   }
   function sendForm(e : React.FormEvent<HTMLFormElement>){
     e.preventDefault();
+    console.log("PENE")
     // console.log(info);
     //codigo para enviar el formulario aqui
   }
+  //captcha validación
+  const onCaptcha = (event:React.ChangeEvent) => {
+    if(event){
+      setCaptcha(true)
+    }
+  } 
   return (
-    <div className="flex flex-col items-center gap-10 pt-20">
-<Image
+    <div className="flex flex-col items-center gap-10 py-20 ">
+{/* <Image
           src={ellipse9.src}
           alt=""
           className={`absolute -left-20 top-2`}
           width={ellipse9.width / 2}
           height={ellipse9.height /2}
-        />
-        <Image
+        /> */}
+        {/* <Image
           src={ellipse9.src}
           alt=""
           className="pointer-events-none absolute -left-20 top-2"
           width={ellipse9.width / 2}
           height={ellipse9.height / 2}
-        />
+        /> */}
       {/* <Image
           src={ellipse9.src}
           alt=""
@@ -242,12 +221,20 @@ function TalkToOurExperts(){
               onChange={(e) => handleChange(e.target.name, e.target.value)}
               className="box-border border-none rounded-md p-2 py-3 pl-7 outline-none w-full md:w-auto"/>
           </div>
+
           <textarea name="request" id="" placeholder="Type your request"
             onChange={(e) => handleChange(e.target.name, e.target.value)}
             className="box-border border-none rounded-lg p-2 py-3 pl-7 outline-none resize-none"
             style={estilazos}/>
         </div>
-        <input className='bg-blue-500 text-white rounded-lg my-6 py-2 px-4 z-[100] ' type="submit"/>
+        <ReCAPTCHA
+              theme='dark'
+              className="py-6"
+              onChange={onCaptcha}
+              sitekey="6LeynPclAAAAABDXoEcwZaj6mBALFIj8agDBSaO_"
+            />  
+        <input className='bg-blue-500 text-white rounded-lg mb-6 py-2 px-4 z-[100] ' type="submit"/>
+        
       </form>
     </div>
   )
@@ -255,47 +242,49 @@ function TalkToOurExperts(){
 export default function Participant() {
   //px-8 md:px-16
   return (
-    <main>
+    <main >
       <IntroSendPackage/>
-      <div className="relative w-full flex flex-col bg-space">
+
+<div className="relative w-full flex flex-col">
         <div className="opacity-60">
+{/*         
         <img 
         src={spaceBackground.src}
         alt="background effect"
-        className="absolute w-full object-contain"
-        />
+        className="absolute w-full object-contain z-[-1]"
+        /> */}
         <Image
           src={ellipse14.src}
           alt=""
-          className="absolute left-0 top-[0px] object-contain"
+          className="pointer-events-none absolute left-0 top-[0px] object-contain"
           width={ellipse14.width/2 }
           height={ellipse14.height / 3}
         />
         <Image
           src={ellipse14.src}
           alt=""
-          className="absolute left-0 top-[30px] object-contain"
+          className="pointer-events-none absolute left-0 top-[30px] object-contain"
           width={ellipse14.width}
           height={ellipse14.height}
         />
         <Image
           src={ellipse14.src}
           alt=""
-          className="absolute left-0 bottom-[60px] object-contain"
+          className="pointer-events-none absolute left-0 bottom-[60px] object-contain"
           width={ellipse14.width /1.4}
           height={ellipse14.height /1.4}
         />
         <Image
           src={ellipse13.src}
           alt=""
-          className="absolute right-0 top-[30px] object-contain"
+          className="pointer-events-none absolute right-0 top-[30px] object-contain"
           width={ellipse13.width /1.4}
           height={ellipse13.height /1.4}
         />
         <Image
           src={ellipse13.src}
           alt=""
-          className="absolute right-0 top-20 object-contain"
+          className="pointer-events-none absolute right-0 top-20 object-contain"
           width={ellipse13.width /1.4}
           height={ellipse13.height /1.4}
         />
@@ -329,13 +318,13 @@ export default function Participant() {
           side="right" />
 
         <div>
-        <Image
+        {/* <Image
           src={ellipse9.src}
           alt=""
           className="pointer-events-none absolute scale-x-[-1] rotate-180"
           width={ellipse9.width / 2}
           height={ellipse9.height / 2}
-        />
+        /> */}
         <ImagesPackage 
           title="Make your package fly"
           description={<>If you need to send a large-scale package to another
@@ -350,7 +339,6 @@ export default function Participant() {
         </div>
       </div>
       <TalkToOurExperts />
-
     </main>
     // images part
     // input

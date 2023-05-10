@@ -84,7 +84,7 @@ export default function Header() {
             <img src={pigeonlogo.src} className="h-14 w-14"></img>
             <div className="flex flex-col">
               <p className="font-Nunito text-2xl font-bold text-white text-shadow-lg">
-                {isApp ? "Pigeon BETA" : "Pigeon DAO"}
+                {isApp ? <>Pigeon <b>BETA</b> </> : <>Pigeon <b>DAO</b> </>}
               </p>
               {/* {headerText.length > 0 && (
                 <div className="flex items-center gap-1">
@@ -97,7 +97,7 @@ export default function Header() {
         </Link>
 
         <div className="items-center gap-2">
-          <ul className="hidden items-center gap-8 lg:flex">
+          <ul className="hidden items-center gap-14 lg:flex">
             {!isApp
               ? HeaderLinks.map((link, i) => (
                   <HeaderLink
