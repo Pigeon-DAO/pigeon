@@ -6,7 +6,6 @@ import ellipse10 from "~/assets/halos/hero/ellipse-10.png";
 import ellipse9 from "~/assets/halos/hero/ellipse-9.png";
 import ellipse11 from "~/assets/halos/hero/ellipse-11.png";
 import ellipse12 from "~/assets/halos/hero/ellipse-12.png";
-import backgroundEffect from "~/assets/Background Effect.png";
 import group98 from "~/assets/svg/Group 98.svg";
 import { useState } from "react";
 import pigeonHalo from "~/assets/halos/pigeon-halo.png"
